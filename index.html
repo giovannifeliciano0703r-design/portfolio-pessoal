@@ -17,7 +17,7 @@
       <a class="logo" href="#inicio">GF<span>.</span></a>
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
       <div class="nav-links">
-        <a href="#sobre">Sobre</a><a href="#habilidades">Habilidades</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a>
+        <a href="#sobre">Sobre</a><a href="#habilidades">Habilidades</a><a href="#projetos">Projetos</a><a href="#relatorio-form">Relatório</a><a href="#contato">Contato</a>
         <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">☾</button>
       </div>
     </nav>
@@ -29,7 +29,7 @@
         <p class="eyebrow">PORTFÓLIO PESSOAL</p>
         <h1>Olá, eu sou <span>Giovanni Feliciano</span>.</h1>
         <p class="hero-text">Desenvolvedor em formação, apaixonado por tecnologia e por transformar ideias em projetos digitais.</p>
-        <div class="actions"><a class="btn primary" href="#projetos">Ver projetos</a><a class="btn secondary" href="#contato">Entrar em contato</a></div>
+        <div class="actions"><a class="btn primary" href="#projetos">Ver projetos</a><a class="btn secondary" href="#relatorio-form">Gerar relatório</a></div>
       </div>
       <div class="hero-card reveal" aria-label="Cartão de apresentação"><div class="avatar">GF</div><p>Desenvolvimento Web</p><small>Aprendendo • Criando • Evoluindo</small></div>
     </section>
@@ -58,6 +58,23 @@
         <article class="project reveal"><div class="project-number">02</div><h3>Portfólio Pessoal</h3><p>Meu espaço para apresentar projetos, habilidades e evolução profissional.</p><div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div><a href="https://github.com/giovannifeliciano0703r-design/portfolio-pessoal" target="_blank" rel="noopener">Ver código →</a></article>
         <article class="project reveal"><div class="project-number">03</div><h3>Próximo projeto</h3><p>Um novo projeto será adicionado aqui conforme meu aprendizado avançar.</p><div class="tags"><span>Em breve</span></div><a href="#contato">Acompanhar →</a></article>
       </div>
+    </section>
+
+    <section id="relatorio-form" class="section container reveal">
+      <p class="eyebrow">RELATÓRIO</p>
+      <h2>Gerar relatório</h2>
+      <p class="section-text">Preencha os dados abaixo. Eles serão salvos somente neste navegador e usados para montar o relatório em uma nova aba.</p>
+      <form id="reportForm" class="report-form">
+        <label for="reportName">Nome</label>
+        <input id="reportName" name="name" type="text" autocomplete="name" placeholder="Seu nome" required>
+        <label for="reportEmail">E-mail</label>
+        <input id="reportEmail" name="email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com" required>
+        <label for="reportGoal">Objetivo</label>
+        <input id="reportGoal" name="goal" type="text" placeholder="Ex.: apresentar meu portfólio" required>
+        <label for="reportNotes">Informações adicionais</label>
+        <textarea id="reportNotes" name="notes" rows="6" placeholder="Digite as informações que devem aparecer no relatório..."></textarea>
+        <button class="btn primary" type="submit">Gerar relatório ↗</button>
+      </form>
     </section>
 
     <section id="contato" class="contact container reveal">
