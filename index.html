@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio pessoal de Giovanni Feliciano — projetos, habilidades e contato.">
+  <meta name="theme-color" content="#0b1020">
+  <title>Giovanni Feliciano | Portfólio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container" aria-label="Navegação principal">
+      <a class="logo" href="#inicio">GF<span>.</span></a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="#sobre">Sobre</a><a href="#habilidades">Habilidades</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a>
+        <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">☾</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero container">
+      <div class="hero-content reveal">
+        <p class="eyebrow">PORTFÓLIO PESSOAL</p>
+        <h1>Olá, eu sou <span>Giovanni Feliciano</span>.</h1>
+        <p class="hero-text">Desenvolvedor em formação, apaixonado por tecnologia e por transformar ideias em projetos digitais.</p>
+        <div class="actions"><a class="btn primary" href="#projetos">Ver projetos</a><a class="btn secondary" href="#contato">Entrar em contato</a></div>
+      </div>
+      <div class="hero-card reveal" aria-label="Cartão de apresentação"><div class="avatar">GF</div><p>Desenvolvimento Web</p><small>Aprendendo • Criando • Evoluindo</small></div>
+    </section>
+
+    <section id="sobre" class="section container reveal">
+      <p class="eyebrow">SOBRE MIM</p><h2>Construindo meu caminho na tecnologia.</h2>
+      <p class="section-text">Este portfólio reúne meus estudos, experiências e projetos. Meu objetivo é evoluir continuamente em desenvolvimento web, criar soluções úteis e construir uma carreira sólida na área de tecnologia.</p>
+    </section>
+
+    <section id="habilidades" class="section container">
+      <p class="eyebrow">HABILIDADES</p><h2>Tecnologias que estou estudando</h2>
+      <div class="skills-grid">
+        <article class="skill reveal"><strong>HTML</strong><span>Estrutura e semântica</span></article>
+        <article class="skill reveal"><strong>CSS</strong><span>Layouts e responsividade</span></article>
+        <article class="skill reveal"><strong>JavaScript</strong><span>Interatividade e lógica</span></article>
+        <article class="skill reveal"><strong>Git & GitHub</strong><span>Versionamento de projetos</span></article>
+        <article class="skill reveal"><strong>React</strong><span>Interfaces modernas</span></article>
+        <article class="skill reveal"><strong>Python</strong><span>Programação e automação</span></article>
+      </div>
+    </section>
+
+    <section id="projetos" class="section container">
+      <p class="eyebrow">PROJETOS</p><h2>Projetos em destaque</h2>
+      <div class="projects-grid">
+        <article class="project reveal"><div class="project-number">01</div><h3>RPG</h3><p>Projeto de jogo desenvolvido para praticar lógica, interface e organização de código.</p><div class="tags"><span>Web</span><span>JavaScript</span></div><a href="https://github.com/giovannifeliciano0703r-design/RPG" target="_blank" rel="noopener">Ver código →</a></article>
+        <article class="project reveal"><div class="project-number">02</div><h3>Portfólio Pessoal</h3><p>Meu espaço para apresentar projetos, habilidades e evolução profissional.</p><div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div><a href="https://github.com/giovannifeliciano0703r-design/portfolio-pessoal" target="_blank" rel="noopener">Ver código →</a></article>
+        <article class="project reveal"><div class="project-number">03</div><h3>Próximo projeto</h3><p>Um novo projeto será adicionado aqui conforme meu aprendizado avançar.</p><div class="tags"><span>Em breve</span></div><a href="#contato">Acompanhar →</a></article>
+      </div>
+    </section>
+
+    <section id="contato" class="contact container reveal">
+      <p class="eyebrow">CONTATO</p><h2>Vamos conversar?</h2><p>Quer conhecer meu trabalho ou trocar uma ideia sobre tecnologia?</p>
+      <div class="contact-links"><a href="https://github.com/giovannifeliciano0703r-design" target="_blank" rel="noopener">GitHub</a><a href="mailto:seuemail@exemplo.com">E-mail</a></div>
+    </section>
+  </main>
+  <footer><div class="container"><p>© <span id="year"></span> Giovanni Feliciano. Feito com dedicação.</p></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
