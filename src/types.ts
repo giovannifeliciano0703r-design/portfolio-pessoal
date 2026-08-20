@@ -1,4 +1,4 @@
-export type Language = 'en' | 'pt' | 'ja';
+export type Language = 'pt' | 'en';
 
 export type WorldKey = 'moss' | 'taupe' | 'islog' | 'ojicra' | 'monoomoi' | 'monoerabi';
 

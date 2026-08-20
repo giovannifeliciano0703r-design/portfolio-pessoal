@@ -203,40 +203,15 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
             </div>
           </div>
         ) : (
-          /* Standard World Articles for other milestones */
-          <div className="space-y-3 mb-6">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 font-bold">
-                Notas de Campo &amp; Publicações
-              </span>
+          /* Milestone Checkpoint info */
+          <div className="p-4 rounded-2xl bg-white border border-neutral-200/90 shadow-xs mb-6">
+            <div className="flex items-center gap-2 mb-2 text-xs font-mono uppercase tracking-wider text-neutral-500 font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span>Ponto de Parada • Jornada do Mundo</span>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1">
-              {world.articles.slice(0, 2).map((art, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 rounded-xl bg-white border border-neutral-200/80 flex flex-col justify-between"
-                >
-                  <div>
-                    <h4 className="text-xs font-medium text-neutral-900 mb-1">
-                      {art.title}
-                    </h4>
-                    {art.excerpt && (
-                      <p className="text-[11px] text-neutral-500 font-serif italic">
-                        {art.excerpt}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1 text-[10px] text-neutral-400 font-mono mt-2 pt-2 border-t border-neutral-100">
-                    {art.tags?.map((tag, tIdx) => (
-                      <span key={tIdx} className="bg-neutral-100 px-1.5 py-0.5 rounded text-neutral-600">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-sans">
+              Você alcançou este marco ao longo da caminhada. Siga em frente pelo percurso para descobrir os próximos trechos e monumentos.
+            </p>
           </div>
         )}
 
@@ -244,7 +219,7 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
         <div className="flex items-center justify-between gap-3 pt-4 border-t border-neutral-200">
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
             <MapPin className="w-4 h-4 text-emerald-700" />
-            <span>Marco {world.name} • 4.8 KM</span>
+            <span>{world.name} • {(world.xStart / 1000).toFixed(1)} KM</span>
           </div>
 
           <button

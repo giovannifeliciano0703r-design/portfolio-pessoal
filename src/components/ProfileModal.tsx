@@ -41,7 +41,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           <div className="flex items-center gap-2 mb-2">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-600 animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-widest text-amber-900 font-bold">
-              {language === 'pt' ? 'PERFIL DO DESENVOLVEDOR' : language === 'ja' ? '開発者プロフィール' : 'DEVELOPER PROFILE'}
+              {language === 'pt' ? 'PERFIL DO DESENVOLVEDOR' : 'DEVELOPER PROFILE'}
             </span>
           </div>
 
@@ -62,7 +62,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           <div className="flex items-center gap-2 mb-3">
             <BookOpen className="w-4 h-4 text-amber-700" />
             <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-800 font-bold">
-              {language === 'pt' ? 'Biografia' : language === 'ja' ? '自己紹介' : 'Biography'}
+              {language === 'pt' ? 'Biografia' : 'Biography'}
             </h3>
           </div>
           <p className="text-sm sm:text-base text-neutral-800 leading-relaxed font-sans">

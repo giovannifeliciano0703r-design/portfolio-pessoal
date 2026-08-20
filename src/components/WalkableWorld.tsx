@@ -318,13 +318,10 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
     >
       {/* Top HUD Navigation Bar */}
       <header className="fixed top-0 left-0 right-0 z-40 px-3 sm:px-8 py-3 flex items-center justify-between pointer-events-auto bg-white/80 backdrop-blur-lg border-b border-neutral-200/80 shadow-xs">
-        {/* Brand & Mode */}
+        {/* Brand */}
         <div className="flex items-center gap-2 sm:gap-3">
           <span className="font-serif font-extrabold tracking-wider text-sm sm:text-base text-neutral-900">
             GIOVANNI<span className="text-amber-800">.FJ</span>
-          </span>
-          <span className="hidden md:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-widest bg-amber-100/90 text-amber-900 border border-amber-300/60 font-bold">
-            {t.act1} / WALKABLE ATLAS
           </span>
         </div>
 
@@ -349,17 +346,6 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
 
         {/* Right Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2.5">
-          {/* Biography Profile Button */}
-          <button
-            type="button"
-            onClick={onOpenProfile}
-            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-800 text-xs font-mono flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
-            title="Ver Biografia de Giovanni Feliciano"
-          >
-            <User className="w-3.5 h-3.5 text-amber-700" />
-            <span className="font-bold hidden sm:inline">Biografia</span>
-          </button>
-
           {/* Minimap / Fast Travel Toggle */}
           <button
             type="button"
@@ -386,16 +372,8 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
             {isMuted ? <VolumeX className="w-4 h-4 text-neutral-400" /> : <Volume2 className="w-4 h-4 text-amber-700" />}
           </button>
 
-          {/* Language Switcher */}
+          {/* Language Switcher (PT / EN) */}
           <div className="flex items-center bg-white border border-neutral-300 rounded-xl px-1.5 py-1 text-xs font-mono">
-            <button
-              type="button"
-              onClick={() => onLanguageChange('en')}
-              className={`px-1.5 py-0.5 rounded ${language === 'en' ? 'bg-neutral-900 text-white font-bold' : 'text-neutral-500 hover:text-neutral-900'}`}
-            >
-              EN
-            </button>
-            <span className="text-neutral-300 text-[10px]">/</span>
             <button
               type="button"
               onClick={() => onLanguageChange('pt')}
@@ -406,10 +384,10 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
             <span className="text-neutral-300 text-[10px]">/</span>
             <button
               type="button"
-              onClick={() => onLanguageChange('ja')}
-              className={`px-1.5 py-0.5 rounded ${language === 'ja' ? 'bg-neutral-900 text-white font-bold' : 'text-neutral-500 hover:text-neutral-900'}`}
+              onClick={() => onLanguageChange('en')}
+              className={`px-1.5 py-0.5 rounded ${language === 'en' ? 'bg-neutral-900 text-white font-bold' : 'text-neutral-500 hover:text-neutral-900'}`}
             >
-              JA
+              EN
             </button>
           </div>
 

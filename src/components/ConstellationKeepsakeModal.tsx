@@ -79,12 +79,12 @@ export const ConstellationKeepsakeModal: React.FC<ConstellationKeepsakeModalProp
 
     // World node positions on the constellation map
     const nodeCoords: { x: number; y: number; key: string; color: string; label: string }[] = [
-      { x: 90, y: 180, key: 'moss', color: '#386641', label: 'moss.fish' },
-      { x: 180, y: 260, key: 'taupe', color: '#a98467', label: 'taupe' },
-      { x: 280, y: 150, key: 'islog', color: '#b86236', label: 'isLog' },
-      { x: 380, y: 250, key: 'ojicra', color: '#4f83a8', label: 'Ojicra' },
-      { x: 470, y: 160, key: 'monoomoi', color: '#b85d6e', label: 'Monoomoi' },
-      { x: 530, y: 240, key: 'monoerabi', color: '#458b99', label: 'Monoerabi' },
+      { x: 90, y: 180, key: 'moss', color: '#386641', label: 'Fercal, DF' },
+      { x: 180, y: 260, key: 'taupe', color: '#a98467', label: 'Marco 7.4k' },
+      { x: 280, y: 150, key: 'islog', color: '#b86236', label: 'Marco 9.9k' },
+      { x: 380, y: 250, key: 'ojicra', color: '#4f83a8', label: 'Marco 12.4k' },
+      { x: 470, y: 160, key: 'monoomoi', color: '#b85d6e', label: 'Marco 14.6k' },
+      { x: 530, y: 240, key: 'monoerabi', color: '#458b99', label: 'Marco 16.4k' },
     ];
 
     // Draw connecting constellation path lines

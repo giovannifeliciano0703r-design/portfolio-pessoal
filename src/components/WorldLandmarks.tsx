@@ -131,7 +131,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         </svg>
       </div>
 
-      {/* World 2: taupe (AI & Web Automation) */}
+      {/* World 2: Marco 7.4 km */}
       <div
         className="absolute bottom-[110px] left-[7400px] flex flex-col items-center pointer-events-auto cursor-pointer group"
         onClick={() => onExplore(worlds[1])}
@@ -140,7 +140,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         <div className="mb-4 transition-transform group-hover:scale-105 duration-200">
           <div className="bg-white/95 border border-[#6c584c]/40 px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-2 text-xs font-mono font-medium text-[#4a3b32]">
             <span className="w-2 h-2 rounded-full bg-[#a98467] animate-ping" />
-            <span>taupe // ai &amp; ops</span>
+            <span>Marco 7.4 km</span>
             <span className="text-[10px] text-neutral-400">7.4km</span>
           </div>
         </div>
@@ -191,7 +191,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         </svg>
       </div>
 
-      {/* World 3: isLog (Travel & Culinary Life) */}
+      {/* World 3: Marco 9.9 km */}
       <div
         className="absolute bottom-[110px] left-[9900px] flex flex-col items-center pointer-events-auto cursor-pointer group"
         onClick={() => onExplore(worlds[2])}
@@ -200,7 +200,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         <div className="mb-4 transition-transform group-hover:scale-105 duration-200">
           <div className="bg-white/95 border border-[#b86236]/40 px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-2 text-xs font-serif font-medium text-[#8f431c]">
             <span className="w-2 h-2 rounded-full bg-[#b86236] animate-ping" />
-            <span>isLog / travel &amp; food</span>
+            <span>Marco 9.9 km</span>
             <span className="text-[10px] text-neutral-400">9.9km</span>
           </div>
         </div>
@@ -222,13 +222,13 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
           <rect x="220" y="93" width="10" height="110" fill="#784d31" stroke="#52321c" strokeWidth="1.2" />
           <rect x="45" y="105" width="190" height="8" fill="#8f5d3d" stroke="#52321c" strokeWidth="1" />
 
-          {/* Noren Entrance Fabric Curtain */}
+          {/* Entrance Fabric Curtain */}
           <rect x="75" y="113" width="40" height="35" fill="#fdfbf7" stroke="#d5cebe" strokeWidth="1" />
-          <text x="95" y="135" fill="#b86236" fontSize="12" fontFamily="serif" textAnchor="middle">旅</text>
+          <text x="95" y="135" fill="#b86236" fontSize="10" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle">VIA</text>
           <rect x="120" y="113" width="40" height="35" fill="#fdfbf7" stroke="#d5cebe" strokeWidth="1" />
-          <text x="140" y="135" fill="#b86236" fontSize="12" fontFamily="serif" textAnchor="middle">食</text>
+          <text x="140" y="135" fill="#b86236" fontSize="10" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle">LOG</text>
           <rect x="165" y="113" width="40" height="35" fill="#fdfbf7" stroke="#d5cebe" strokeWidth="1" />
-          <text x="185" y="135" fill="#b86236" fontSize="12" fontFamily="serif" textAnchor="middle">記</text>
+          <text x="185" y="135" fill="#b86236" fontSize="10" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle">CAFE</text>
 
           {/* Wooden Bench (Engawa) */}
           <rect x="60" y="165" width="160" height="12" rx="2" fill="#a06e4a" stroke="#6d4629" strokeWidth="1.2" />
@@ -251,7 +251,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         </svg>
       </div>
 
-      {/* World 4: Ojicra (Minecraft Worldbuilding) */}
+      {/* World 4: Marco 12.4 km */}
       <div
         className="absolute bottom-[110px] left-[12400px] flex flex-col items-center pointer-events-auto cursor-pointer group"
         onClick={() => onExplore(worlds[3])}
@@ -260,7 +260,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         <div className="mb-4 transition-transform group-hover:scale-105 duration-200">
           <div className="bg-white/95 border border-[#2a5a7b]/40 px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-2 text-xs font-mono font-medium text-[#1e4159]">
             <span className="w-2 h-2 rounded-full bg-[#4f83a8] animate-ping" />
-            <span>Ojicra // minecraft 8-yr world</span>
+            <span>Marco 12.4 km</span>
             <span className="text-[10px] text-neutral-400">12.4km</span>
           </div>
         </div>
@@ -306,7 +306,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         </svg>
       </div>
 
-      {/* World 5: Monoomoi (Gifts & Human Feelings) */}
+      {/* World 5: Marco 14.6 km */}
       <div
         className="absolute bottom-[110px] left-[14600px] flex flex-col items-center pointer-events-auto cursor-pointer group"
         onClick={() => onExplore(worlds[4])}
@@ -315,7 +315,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         <div className="mb-4 transition-transform group-hover:scale-105 duration-200">
           <div className="bg-white/95 border border-[#8b3a4a]/40 px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-2 text-xs font-serif font-medium text-[#702937]">
             <span className="w-2 h-2 rounded-full bg-[#b85d6e] animate-ping" />
-            <span>Monoomoi / gifts &amp; people</span>
+            <span>Marco 14.6 km</span>
             <span className="text-[10px] text-neutral-400">14.6km</span>
           </div>
         </div>
@@ -351,7 +351,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         </svg>
       </div>
 
-      {/* World 6: Monoerabi (Editorial Reviews & Comparative Design) */}
+      {/* World 6: Marco 16.4 km */}
       <div
         className="absolute bottom-[110px] left-[16400px] flex flex-col items-center pointer-events-auto cursor-pointer group"
         onClick={() => onExplore(worlds[5])}
@@ -360,7 +360,7 @@ export const WorldLandmarks: React.FC<WorldLandmarksProps> = ({
         <div className="mb-4 transition-transform group-hover:scale-105 duration-200">
           <div className="bg-white/95 border border-[#2b626d]/40 px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-2 text-xs font-serif font-medium text-[#1c474f]">
             <span className="w-2 h-2 rounded-full bg-[#458b99] animate-ping" />
-            <span>Monoerabi // gear editorial</span>
+            <span>Marco 16.4 km</span>
             <span className="text-[10px] text-neutral-400">16.4km</span>
           </div>
         </div>
