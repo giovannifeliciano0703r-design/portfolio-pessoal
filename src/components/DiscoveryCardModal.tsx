@@ -1,6 +1,7 @@
 import React from 'react';
 import { WorldArea, Language } from '../types';
 import { UI_STRINGS } from '../data/portfolioData';
+import { FERCAL_LETREIRO_IMAGE, FERCAL_PANORAMICA_IMAGE } from '../data/fercalImages';
 import { X, ExternalLink, Compass, MapPin, Sparkles, Image as ImageIcon } from 'lucide-react';
 
 interface DiscoveryCardModalProps {
@@ -72,53 +73,52 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Foto 1 — sem filtros de blur e com área maior para facilitar a visualização */}
-              <div className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-lg transition-all flex flex-col">
-                <div className="relative h-64 sm:h-72 bg-gradient-to-b from-[#70b2f5] via-[#a3cdf8] to-[#40916c] overflow-hidden flex flex-col justify-end p-4">
-                  <div className="absolute top-3 left-3 text-white/90 text-xs font-serif italic">Céu do Distrito Federal</div>
-                  <div className="absolute -top-5 -right-5 w-36 h-36 rounded-full bg-[#2d6a4f]/90" />
-                  <div className="absolute top-6 right-16 w-24 h-24 rounded-full bg-[#40916c]/90" />
-                  <div className="absolute top-4 left-10 w-28 h-28 rounded-full bg-[#1b4332]/85" />
-                  <div className="absolute bottom-0 left-0 right-0 h-24 bg-[#52b788] rounded-t-[30%]" />
-                  <div className="relative z-10 flex items-center justify-center gap-2 bg-white/95 py-3 px-4 rounded-xl border border-neutral-200 shadow-xl">
-                    <span className="font-extrabold text-neutral-900 tracking-wider text-xl">EU</span>
-                    <span className="text-red-600 text-2xl">❤️</span>
-                    <span className="font-extrabold text-neutral-900 tracking-widest text-xl">FERCAL</span>
-                  </div>
-                  <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/75 text-white px-2 py-1 rounded-full z-10">Monumento da Cidade</span>
-                </div>
-                <div className="p-4">
-                  <h4 className="text-sm font-bold text-neutral-900">Monumento "Eu ❤️ Fercal"</h4>
-                  <p className="text-xs text-neutral-600 mt-1">Letreiro emblemático localizado na entrada da Fercal.</p>
-                </div>
-              </div>
-
-              {/* Foto 2 — link para a publicação do Instagram */}
               <a
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Abrir a segunda foto da Fercal no Instagram"
+                aria-label="Abrir a foto do letreiro da Fercal no Instagram"
                 title="Abrir esta foto no Instagram"
                 className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-lg transition-all cursor-pointer flex flex-col focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
               >
-                <div className="relative h-64 sm:h-72 bg-gradient-to-b from-[#101827] via-[#283548] to-[#17231d] overflow-hidden flex flex-col justify-end p-4">
-                  {/* Paisagem em alta definição visual: removidos blur-xs e backdrop-blur-xs que deixavam a imagem artificialmente embaçada. */}
-                  <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-amber-500/25 to-transparent" />
-                  <div className="absolute bottom-12 -left-12 w-56 h-36 rounded-[45%] bg-[#183d2b]" />
-                  <div className="absolute bottom-10 -right-12 w-60 h-40 rounded-[45%] bg-[#0d2118]" />
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-28 bg-amber-300/75" />
-                  <div className="absolute bottom-7 left-[18%] w-2 h-2 rounded-full bg-amber-300" />
-                  <div className="absolute bottom-10 left-[28%] w-1.5 h-1.5 rounded-full bg-amber-200" />
-                  <div className="absolute bottom-8 right-[20%] w-2 h-2 rounded-full bg-amber-300" />
-                  <div className="absolute bottom-12 right-[31%] w-1.5 h-1.5 rounded-full bg-amber-200" />
+                <div className="relative h-64 sm:h-72 bg-neutral-100 overflow-hidden">
+                  <img
+                    src={FERCAL_LETREIRO_IMAGE}
+                    alt="Letreiro Eu amo Fercal em meio ao verde da cidade"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 text-white px-2 py-1 rounded-full z-10 flex items-center gap-1.5">
+                    Letreiro da Cidade • Instagram <ExternalLink className="w-3 h-3" />
+                  </span>
+                </div>
+                <div className="p-4">
+                  <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-2">
+                    Monumento "Eu ❤️ Fercal"
+                    <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
+                  </h4>
+                  <p className="text-xs text-neutral-600 mt-1">Foto original do letreiro da Fercal. Clique para abrir a publicação no Instagram.</p>
+                </div>
+              </a>
 
-                  <div className="relative z-10 bg-black/85 p-3 rounded-xl border border-amber-400/60 text-center shadow-xl">
-                    <div className="text-xs font-mono font-bold text-amber-200 tracking-wider">FERCAL RA XXXI</div>
-                    <div className="text-[10px] font-mono text-neutral-100 mt-1">CAPITAL DO CALCÁRIO</div>
-                  </div>
-
-                  <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/85 text-white px-2 py-1 rounded-full z-10 flex items-center gap-1.5">
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir a vista panorâmica da Fercal no Instagram"
+                title="Abrir esta foto no Instagram"
+                className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-lg transition-all cursor-pointer flex flex-col focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
+              >
+                <div className="relative h-64 sm:h-72 bg-neutral-100 overflow-hidden">
+                  <img
+                    src={FERCAL_PANORAMICA_IMAGE}
+                    alt="Vista aérea panorâmica da Fercal com relevo, cidade e área de mineração"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 text-white px-2 py-1 rounded-full z-10 flex items-center gap-1.5">
                     Vista Aérea • Instagram <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
@@ -127,7 +127,7 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
                     Vista Panorâmica da Fercal
                     <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
                   </h4>
-                  <p className="text-xs text-neutral-600 mt-1">Clique para abrir a publicação original e ver a foto com a qualidade disponível no Instagram.</p>
+                  <p className="text-xs text-neutral-600 mt-1">Vista aérea da Fercal. Clique para abrir a publicação original no Instagram.</p>
                 </div>
               </a>
             </div>
