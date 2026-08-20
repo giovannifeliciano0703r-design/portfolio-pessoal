@@ -12,6 +12,40 @@
   <body class="bg-[#faf8f5] text-[#242424] antialiased selection:bg-[#d8c7a9] selection:text-black overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Segundo marco (7.4 km): o registro visual funciona como atalho
+      // direto para a publicação correspondente no Instagram.
+      const INSTAGRAM_SECOND_MILESTONE = 'https://www.instagram.com/p/C_1hzBcsTQv/';
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const photo = target.closest('#landmark-taupe svg');
+        if (!photo) return;
+
+        // Impede que o clique também abra o modal do marco.
+        event.preventDefault();
+        event.stopPropagation();
+
+        window.open(INSTAGRAM_SECOND_MILESTONE, '_blank', 'noopener,noreferrer');
+      }, true);
+
+      // Melhora a indicação visual e a acessibilidade do registro clicável.
+      const markPhotoAsInstagramLink = () => {
+        const photo = document.querySelector('#landmark-taupe svg');
+        if (!photo) return;
+
+        photo.style.cursor = 'pointer';
+        photo.setAttribute('role', 'link');
+        photo.setAttribute('tabindex', '0');
+        photo.setAttribute('aria-label', 'Abrir fotos do segundo marco no Instagram');
+        photo.setAttribute('title', 'Clique para abrir as fotos no Instagram');
+      };
+
+      const observer = new MutationObserver(markPhotoAsInstagramLink);
+      observer.observe(document.body, { childList: true, subtree: true });
+      markPhotoAsInstagramLink();
+    </script>
   </body>
 </html>
-
