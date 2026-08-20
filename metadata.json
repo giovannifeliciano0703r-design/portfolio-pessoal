@@ -1,0 +1,6 @@
+{
+  "name": "Walkable Atlas Portfolio",
+  "description": "An interactive walkable atlas portfolio by Giovanni.FJ, featuring playable exploration across creative worlds, procedural audio, constellation tracking, and interactive project showcases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
