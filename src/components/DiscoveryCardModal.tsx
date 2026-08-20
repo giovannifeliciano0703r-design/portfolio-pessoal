@@ -21,6 +21,10 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
   if (!world) return null;
   const t = UI_STRINGS[language];
 
+  const openFercalInstagram = () => {
+    window.open('https://www.instagram.com/p/C_1hzBcsTQv/', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div
       id="discovery-card-overlay"
@@ -32,13 +36,11 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
         className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#faf8f5] border border-neutral-300/80 rounded-3xl shadow-2xl p-6 sm:p-8 text-[#242424] transform transition-all duration-300"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Accent Strip */}
         <div
           className="absolute top-0 left-0 right-0 h-2.5 rounded-t-3xl"
           style={{ backgroundColor: world.color }}
         />
 
-        {/* Close Button */}
         <button
           id="close-discovery-card"
           type="button"
@@ -49,7 +51,6 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header */}
         <div className="flex items-start gap-4 mb-5">
           <div
             className="w-13 h-13 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-md"
@@ -75,14 +76,12 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
           </div>
         </div>
 
-        {/* User's Authentic Personal Narrative */}
         <div className="p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200/90 shadow-xs mb-6">
           <p className="text-sm sm:text-base text-neutral-800 leading-relaxed font-sans">
             "{world.description}"
           </p>
         </div>
 
-        {/* Photo Gallery & Landmarks for Fercal */}
         {world.key === 'moss' ? (
           <div className="space-y-4 mb-6">
             <div className="flex items-center justify-between">
@@ -96,32 +95,24 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Photo 1: Monumento EU ❤️ FERCAL */}
+              {/* Foto 1 */}
               <div
                 onClick={() => setSelectedPhoto('letreiro')}
                 className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-md transition-all cursor-pointer flex flex-col"
               >
-                {/* Visual Representation of Letreiro */}
                 <div className="relative h-44 bg-gradient-to-b from-[#70b2f5] via-[#a3cdf8] to-[#40916c] overflow-hidden flex flex-col justify-end p-4">
-                  {/* Sky & Tree Silhouettes */}
                   <div className="absolute top-2 left-3 text-white/40 text-xs font-serif italic">
                     Céu do Distrito Federal
                   </div>
-                  {/* Trees */}
                   <div className="absolute -top-4 -right-6 w-32 h-32 rounded-full bg-[#2d6a4f]/80 blur-xs" />
                   <div className="absolute top-4 right-14 w-20 h-20 rounded-full bg-[#40916c]/80 blur-xs" />
                   <div className="absolute top-2 left-8 w-24 h-24 rounded-full bg-[#1b4332]/70 blur-xs" />
-
-                  {/* Grass Slope */}
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-[#52b788] rounded-t-[30%]" />
-
-                  {/* 3D "EU ❤️ FERCAL" Monument */}
                   <div className="relative z-10 flex items-center justify-center gap-1.5 bg-white/95 backdrop-blur-xs py-2 px-3 rounded-xl border border-neutral-200 shadow-lg">
                     <span className="font-extrabold text-neutral-900 tracking-wider text-base font-sans">EU</span>
                     <span className="text-red-600 text-lg animate-pulse">❤️</span>
                     <span className="font-extrabold text-neutral-900 tracking-widest text-base font-sans">FERCAL</span>
                   </div>
-
                   <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/60 text-white px-2 py-0.5 rounded-full z-10">
                     Monumento da Cidade
                   </span>
@@ -135,75 +126,51 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
                     Letreiro emblemático localizado na entrada da Fercal, cercado pela vegetação e a tranquilidade da natureza.
                   </p>
                   <div className="flex items-center gap-1.5 mt-2.5 flex-wrap">
-                    <span className="text-[10px] font-mono bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-md font-medium">
-                      #Fercal
-                    </span>
-                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">
-                      #DistritoFederal
-                    </span>
-                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">
-                      #Natureza
-                    </span>
+                    <span className="text-[10px] font-mono bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-md font-medium">#Fercal</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">#DistritoFederal</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">#Natureza</span>
                   </div>
                 </div>
               </div>
 
-              {/* Photo 2: Vista Aérea Noturna / Relevo */}
-              <div
-                onClick={() => setSelectedPhoto('panoramica')}
-                className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-md transition-all cursor-pointer flex flex-col"
+              {/* Foto 2 — abre a publicação do Instagram */}
+              <button
+                type="button"
+                onClick={openFercalInstagram}
+                className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-md transition-all cursor-pointer flex flex-col text-left w-full"
+                aria-label="Abrir a segunda foto da Fercal no Instagram"
+                title="Abrir esta foto no Instagram"
               >
-                {/* Visual Representation of Vista Panorâmica */}
                 <div className="relative h-44 bg-gradient-to-b from-[#1a202c] via-[#2d3748] to-[#1e293b] overflow-hidden flex flex-col justify-end p-4">
-                  {/* Sunset glow / Horizon lights */}
                   <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-amber-500/20 to-transparent" />
-                  
-                  {/* Mountain silhouettes */}
                   <div className="absolute bottom-10 -left-10 w-48 h-32 rounded-full bg-[#1b4332]/60 blur-xs" />
                   <div className="absolute bottom-8 -right-10 w-52 h-36 rounded-full bg-[#0f281e]/80 blur-xs" />
-                  
-                  {/* Lit Highway / Town Lights */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-24 bg-amber-400/30 blur-xs" />
-                  
-                  {/* Hillside Inscription */}
                   <div className="relative z-10 bg-black/75 backdrop-blur-xs p-2 rounded-xl border border-amber-500/40 text-center shadow-lg">
-                    <div className="text-[11px] font-mono font-bold text-amber-300 tracking-wider">
-                      FERCAL RA XXXI
-                    </div>
-                    <div className="text-[9px] font-mono text-neutral-300">
-                      CAPITAL DO CALCÁRIO
-                    </div>
+                    <div className="text-[11px] font-mono font-bold text-amber-300 tracking-wider">FERCAL RA XXXI</div>
+                    <div className="text-[9px] font-mono text-neutral-300">CAPITAL DO CALCÁRIO</div>
                   </div>
-
-                  <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/70 text-white px-2 py-0.5 rounded-full z-10">
-                    Vista Aérea
-                  </span>
+                  <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/70 text-white px-2 py-0.5 rounded-full z-10">Vista Aérea • Instagram</span>
                 </div>
 
                 <div className="p-3.5">
-                  <h4 className="text-sm font-bold text-neutral-900 group-hover:text-emerald-800 transition-colors">
+                  <h4 className="text-sm font-bold text-neutral-900 group-hover:text-emerald-800 transition-colors flex items-center gap-2">
                     Vista Panorâmica da Fercal
+                    <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
                   </h4>
                   <p className="text-xs text-neutral-600 mt-1 line-clamp-2">
-                    Visão aérea das colinas, do relevo característico da região e da iluminação urbana ao entardecer.
+                    Clique para acessar a publicação com a foto e conhecer mais sobre a Fercal.
                   </p>
                   <div className="flex items-center gap-1.5 mt-2.5 flex-wrap">
-                    <span className="text-[10px] font-mono bg-amber-50 text-amber-800 px-2 py-0.5 rounded-md font-medium">
-                      #RA_XXXI
-                    </span>
-                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">
-                      #Sobradinho
-                    </span>
-                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">
-                      #Geografia
-                    </span>
+                    <span className="text-[10px] font-mono bg-amber-50 text-amber-800 px-2 py-0.5 rounded-md font-medium">#RA_XXXI</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">#Sobradinho</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md">#Geografia</span>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         ) : (
-          /* Milestone Checkpoint info */
           <div className="p-4 rounded-2xl bg-white border border-neutral-200/90 shadow-xs mb-6">
             <div className="flex items-center gap-2 mb-2 text-xs font-mono uppercase tracking-wider text-neutral-500 font-bold">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" />
@@ -215,13 +182,11 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
           </div>
         )}
 
-        {/* Footer Actions */}
         <div className="flex items-center justify-between gap-3 pt-4 border-t border-neutral-200">
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
             <MapPin className="w-4 h-4 text-emerald-700" />
             <span>{world.name} • {(world.xStart / 1000).toFixed(1)} KM</span>
           </div>
-
           <button
             type="button"
             onClick={onClose}
