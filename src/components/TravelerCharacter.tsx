@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CharacterState } from '../types';
 
 interface TravelerCharacterProps {
@@ -7,6 +7,7 @@ interface TravelerCharacterProps {
 }
 
 export const TravelerCharacter: React.FC<TravelerCharacterProps> = ({ state, currentColor }) => {
+  const characterRef = useRef<HTMLDivElement>(null);
   const isFlipped = state.direction === 'left';
   const walkPhase = state.frameIndex * 0.22;
   const strideStrength = state.isWalking ? Math.min(1, Math.abs(state.vx) / 440) : 0;
@@ -14,13 +15,80 @@ export const TravelerCharacter: React.FC<TravelerCharacterProps> = ({ state, cur
   const armOffset = -Math.sin(walkPhase) * 8 * strideStrength;
   const bobbing = state.isWalking ? Math.abs(Math.sin(walkPhase * 2)) * 2.2 : 0;
   const jumpTilt = state.isJumping ? Math.max(-7, Math.min(7, state.vy / 90)) : 0;
+  const targetY = state.y - bobbing;
+
+  const motionRef = useRef({
+    x: state.x,
+    y: targetY,
+    targetX: state.x,
+    targetY,
+    vx: state.vx,
+    tilt: jumpTilt,
+    targetTilt: jumpTilt,
+    directionScale: isFlipped ? -1 : 1,
+    snapshotAt: 0,
+  });
+
+  // O estado do jogo chega pelo React em intervalos curtos. Guardamos o último
+  // snapshot e interpolamos visualmente a posição em cada frame para evitar
+  // pequenos "saltos" perceptíveis no personagem, principalmente ao correr.
+  useEffect(() => {
+    const motion = motionRef.current;
+    const now = performance.now();
+
+    // Viagem rápida deve parecer instantânea, não uma corrida atravessando o mapa.
+    if (Math.abs(state.x - motion.x) > 700) motion.x = state.x;
+    if (Math.abs(targetY - motion.y) > 120) motion.y = targetY;
+
+    motion.targetX = state.x;
+    motion.targetY = targetY;
+    motion.vx = state.vx;
+    motion.targetTilt = jumpTilt;
+    motion.directionScale = isFlipped ? -1 : 1;
+    motion.snapshotAt = now;
+  }, [state.x, state.vx, targetY, jumpTilt, isFlipped]);
+
+  useEffect(() => {
+    let animationFrameId = 0;
+    let lastFrame = performance.now();
+    motionRef.current.snapshotAt = lastFrame;
+
+    const renderMotion = (now: number) => {
+      const element = characterRef.current;
+      const motion = motionRef.current;
+      const dt = Math.min((now - lastFrame) / 1000, 0.05);
+      lastFrame = now;
+
+      // Pequena previsão horizontal compensa o intervalo entre snapshots do React
+      // sem deixar o sprite se afastar da física real do mundo.
+      const timeSinceSnapshot = Math.min(0.022, Math.max(0, (now - motion.snapshotAt) / 1000));
+      const predictedX = motion.targetX + motion.vx * timeSinceSnapshot;
+      const horizontalFollow = 1 - Math.exp(-30 * dt);
+      const verticalFollow = 1 - Math.exp(-36 * dt);
+      const rotationFollow = 1 - Math.exp(-24 * dt);
+
+      motion.x += (predictedX - motion.x) * horizontalFollow;
+      motion.y += (motion.targetY - motion.y) * verticalFollow;
+      motion.tilt += (motion.targetTilt - motion.tilt) * rotationFollow;
+
+      if (element) {
+        element.style.transform = `translate3d(${motion.x}px, ${motion.y}px, 0) scaleX(${motion.directionScale}) rotate(${motion.tilt}deg)`;
+      }
+
+      animationFrameId = requestAnimationFrame(renderMotion);
+    };
+
+    animationFrameId = requestAnimationFrame(renderMotion);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   return (
     <div
+      ref={characterRef}
       id="traveler-character-container"
       className={`relative select-none pointer-events-none will-change-transform traveler-motion ${state.isWalking ? 'traveler-walking' : 'traveler-idle'} ${state.isJumping ? 'traveler-jumping' : ''}`}
       style={{
-        transform: `translate3d(${state.x}px, ${state.y - bobbing}px, 0) scaleX(${isFlipped ? -1 : 1}) rotate(${jumpTilt}deg)`,
+        transform: `translate3d(${state.x}px, ${targetY}px, 0) scaleX(${isFlipped ? -1 : 1}) rotate(${jumpTilt}deg)`,
         width: '56px',
         height: '86px',
       }}
