@@ -2,58 +2,28 @@
 
 @layer utilities {
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.98);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
   }
 
   @keyframes floatSlow {
-    0%, 100% {
-      transform: translateY(0px) translateX(0px);
-    }
-    50% {
-      transform: translateY(-12px) translateX(6px);
-    }
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-12px) translateX(6px); }
   }
 
   @keyframes pulseGlow {
-    0%, 100% {
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.85;
-      transform: scale(1.15);
-    }
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.15); }
   }
 
   @keyframes dustFade {
-    0% {
-      opacity: 0.8;
-      transform: scale(0.5) translateY(0);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.4) translateY(-10px) translateX(-10px);
-    }
+    0% { opacity: 0.8; transform: scale(0.5) translateY(0); }
+    100% { opacity: 0; transform: scale(1.4) translateY(-10px) translateX(-10px); }
   }
 
-  .animate-fadeIn {
-    animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-floatSlow {
-    animation: floatSlow 6s ease-in-out infinite;
-  }
-
-  .animate-pulseGlow {
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
+  .animate-fadeIn { animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-floatSlow { animation: floatSlow 6s ease-in-out infinite; }
+  .animate-pulseGlow { animation: pulseGlow 3s ease-in-out infinite; }
 }
 
 @keyframes travelerIdleBreath {
@@ -107,23 +77,63 @@
   50% { opacity: 0.27; transform: translateY(-5px) scaleX(1.025); }
 }
 
+@keyframes scenerySway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50% { transform: rotate(1.8deg); }
+}
+
+@keyframes sceneryLanternPulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); box-shadow: 0 0 7px rgba(251,191,36,0.4); }
+  50% { opacity: 1; transform: scale(1.08); box-shadow: 0 0 16px rgba(251,191,36,0.75); }
+}
+
+@keyframes sceneryButterflyFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(8deg); }
+  35% { transform: translate3d(16px, -16px, 0) rotate(-12deg); }
+  70% { transform: translate3d(-8px, -25px, 0) rotate(16deg); }
+}
+
+@keyframes scenerySignalPulse {
+  0% { transform: translate(-50%, -50%) scale(0.45); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0; }
+}
+
+@keyframes scenerySteamRise {
+  0% { transform: translateY(0) scaleX(0.8); opacity: 0; }
+  25% { opacity: 0.34; }
+  100% { transform: translateY(-38px) translateX(8px) scaleX(1.3); opacity: 0; }
+}
+
+@keyframes sceneryTwinkle {
+  0%, 100% { opacity: 0.45; transform: scale(0.86); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes sceneryBannerWave {
+  0%, 100% { transform: skewY(-2deg) scaleX(0.96); }
+  50% { transform: skewY(4deg) scaleX(1.03); }
+}
+
+@keyframes sceneryWindSweep {
+  0% { transform: translateX(-20px); opacity: 0; }
+  30% { opacity: 0.22; }
+  100% { transform: translateX(95px); opacity: 0; }
+}
+
+@keyframes sceneryGlint {
+  0%, 100% { opacity: 0.12; transform: scale(0.6) rotate(0deg); }
+  50% { opacity: 0.85; transform: scale(1.15) rotate(45deg); }
+}
+
 .traveler-motion {
   transform-origin: 28px 76px;
   backface-visibility: hidden;
   contain: layout style;
 }
 
-.traveler-body {
-  transform-origin: 50% 70%;
-}
-
-.traveler-idle .traveler-body {
-  animation: travelerIdleBreath 2.8s ease-in-out infinite;
-}
-
-.traveler-limb {
-  transition: transform 58ms cubic-bezier(0.2, 0.7, 0.3, 1);
-}
+.traveler-body { transform-origin: 50% 70%; }
+.traveler-idle .traveler-body { animation: travelerIdleBreath 2.8s ease-in-out infinite; }
+.traveler-limb { transition: transform 58ms cubic-bezier(0.2, 0.7, 0.3, 1); }
 
 .traveler-scarf {
   transform-box: fill-box;
@@ -131,9 +141,7 @@
   animation: travelerScarfWave 1.15s ease-in-out infinite;
 }
 
-.traveler-walking .traveler-scarf {
-  animation-duration: 0.62s;
-}
+.traveler-walking .traveler-scarf { animation-duration: 0.62s; }
 
 .traveler-satchel {
   transform-box: fill-box;
@@ -141,23 +149,16 @@
   animation: travelerSatchelSwing 1.8s ease-in-out infinite;
 }
 
-.traveler-walking .traveler-satchel {
-  animation-duration: 0.72s;
-}
+.traveler-walking .traveler-satchel { animation-duration: 0.72s; }
 
 .traveler-shadow {
   transform: translateX(-50%);
   transition: width 120ms ease, opacity 120ms ease, transform 120ms ease;
 }
 
-.traveler-jumping .traveler-shadow {
-  transform: translateX(-50%) scaleX(0.72);
-}
+.traveler-jumping .traveler-shadow { transform: translateX(-50%) scaleX(0.72); }
 
-.ambient-life {
-  mix-blend-mode: normal;
-  isolation: isolate;
-}
+.ambient-life { mix-blend-mode: normal; isolation: isolate; }
 
 .ambient-vignette {
   background:
@@ -207,38 +208,11 @@
   background: inherit;
 }
 
-.ambient-cloud::before {
-  width: 90px;
-  height: 52px;
-  left: 34px;
-  top: -18px;
-}
-
-.ambient-cloud::after {
-  width: 72px;
-  height: 44px;
-  right: 26px;
-  top: -12px;
-}
-
-.ambient-cloud-a {
-  top: 19%;
-  animation: ambientCloudDrift 48s linear infinite;
-}
-
-.ambient-cloud-b {
-  top: 31%;
-  width: 250px;
-  opacity: 0.23;
-  animation: ambientCloudDrift 66s linear -31s infinite;
-}
-
-.ambient-cloud-c {
-  top: 11%;
-  width: 150px;
-  opacity: 0.18;
-  animation: ambientCloudDrift 57s linear -18s infinite;
-}
+.ambient-cloud::before { width: 90px; height: 52px; left: 34px; top: -18px; }
+.ambient-cloud::after { width: 72px; height: 44px; right: 26px; top: -12px; }
+.ambient-cloud-a { top: 19%; animation: ambientCloudDrift 48s linear infinite; }
+.ambient-cloud-b { top: 31%; width: 250px; opacity: 0.23; animation: ambientCloudDrift 66s linear -31s infinite; }
+.ambient-cloud-c { top: 11%; width: 150px; opacity: 0.18; animation: ambientCloudDrift 57s linear -18s infinite; }
 
 .ambient-birds {
   position: absolute;
@@ -254,18 +228,8 @@
 
 .ambient-birds span:nth-child(2) { transform: translateY(6px) scale(0.82); }
 .ambient-birds span:nth-child(3) { transform: translateY(-3px) scale(0.66); }
-
-.ambient-birds-a {
-  top: 24%;
-  animation: ambientBirdFlight 29s linear -7s infinite;
-}
-
-.ambient-birds-b {
-  top: 38%;
-  font-size: 12px;
-  opacity: 0.7;
-  animation: ambientBirdFlight 41s linear -25s infinite;
-}
+.ambient-birds-a { top: 24%; animation: ambientBirdFlight 29s linear -7s infinite; }
+.ambient-birds-b { top: 38%; font-size: 12px; opacity: 0.7; animation: ambientBirdFlight 41s linear -25s infinite; }
 
 .ambient-mote {
   position: absolute;
@@ -290,11 +254,7 @@
   will-change: transform, opacity;
 }
 
-.ambient-leaf:nth-of-type(2n) {
-  width: 6px;
-  height: 3px;
-  background: rgba(151, 108, 67, 0.28);
-}
+.ambient-leaf:nth-of-type(2n) { width: 6px; height: 3px; background: rgba(151, 108, 67, 0.28); }
 
 .ambient-firefly {
   position: absolute;
@@ -308,6 +268,151 @@
   will-change: transform, opacity;
 }
 
+/* Cenário da jornada */
+.scenery-layer { width: 18600px; height: 100%; overflow: hidden; }
+.scenery-ground-wash { background: linear-gradient(to top, rgba(89,74,58,0.08), rgba(110,92,70,0.025) 55%, transparent); }
+
+.scenery-tree {
+  position: absolute;
+  bottom: 100px;
+  width: 90px;
+  height: 155px;
+  transform-origin: bottom center;
+  opacity: 0.82;
+}
+
+.scenery-tree-trunk {
+  position: absolute;
+  left: 42px;
+  bottom: 0;
+  width: 9px;
+  height: 84px;
+  border-radius: 70% 40% 18% 18%;
+  background: linear-gradient(90deg, #695143, #8b6a55 55%, #5a4338);
+  transform: rotate(2deg);
+}
+
+.scenery-tree-crown {
+  position: absolute;
+  border-radius: 50% 48% 54% 44%;
+  background: rgba(65, 104, 70, 0.9);
+  box-shadow: inset -8px -7px 0 rgba(33, 78, 51, 0.14);
+  transform-origin: bottom center;
+  animation: scenerySway 5.8s ease-in-out infinite;
+}
+
+.scenery-tree-crown-a { width: 66px; height: 50px; left: 4px; top: 34px; }
+.scenery-tree-crown-b { width: 58px; height: 48px; left: 34px; top: 18px; animation-delay: -1.8s; }
+.scenery-tree-crown-c { width: 48px; height: 40px; left: 24px; top: 2px; animation-delay: -3s; }
+.scenery-tree-2 .scenery-tree-crown { background: rgba(79, 117, 73, 0.88); }
+.scenery-tree-3 .scenery-tree-crown { background: rgba(86, 111, 70, 0.84); }
+
+.scenery-rock {
+  position: absolute;
+  bottom: 99px;
+  width: 38px;
+  height: 21px;
+  border-radius: 65% 55% 18% 18%;
+  background: linear-gradient(145deg, #9b9184, #71685f);
+  box-shadow: inset -6px -3px 0 rgba(55,48,43,0.12), 0 4px 7px rgba(63,52,42,0.08);
+  opacity: 0.7;
+}
+
+.scenery-rock-2 { width: 26px; height: 16px; transform: scale(0.82) rotate(-6deg); }
+.scenery-rock-3 { width: 46px; height: 24px; transform: scale(1.05) rotate(4deg); }
+
+.scenery-grass {
+  position: absolute;
+  bottom: 98px;
+  width: 14px;
+  height: 24px;
+  opacity: 0.52;
+  transform-origin: bottom center;
+  animation: scenerySway 4.2s ease-in-out infinite;
+}
+
+.scenery-grass::before,
+.scenery-grass::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 22px;
+  background: #71866a;
+  border-radius: 100% 100% 0 0;
+  transform-origin: bottom;
+}
+
+.scenery-grass::before { left: 5px; transform: rotate(-22deg); }
+.scenery-grass::after { right: 4px; transform: rotate(24deg); }
+.scenery-grass-tall { transform: scale(1.3); opacity: 0.62; }
+
+.scenery-lantern { position: absolute; bottom: 98px; width: 24px; height: 94px; opacity: 0.76; }
+.scenery-lantern-post { position: absolute; left: 10px; bottom: 0; width: 4px; height: 78px; background: #4c4945; border-radius: 2px; }
+.scenery-lantern-head { position: absolute; left: 3px; top: 0; width: 18px; height: 22px; border-radius: 4px 4px 7px 7px; border: 2px solid #4c4945; background: rgba(255,247,224,0.62); }
+.scenery-lantern-light { position: absolute; inset: 5px; border-radius: 999px; background: #fbbf24; animation: sceneryLanternPulse 3.4s ease-in-out infinite; }
+
+.scenery-zone { position: absolute; bottom: 98px; width: 1900px; height: 260px; }
+
+.scenery-limestone { position: absolute; bottom: 2px; background: linear-gradient(145deg, #cfc8bb, #978d80); opacity: 0.38; clip-path: polygon(0 100%, 12% 28%, 32% 18%, 45% 0, 58% 36%, 78% 24%, 100% 100%); }
+.limestone-a { left: 110px; width: 260px; height: 92px; }
+.limestone-b { left: 1450px; width: 310px; height: 108px; opacity: 0.3; }
+.scenery-shrub { position: absolute; bottom: 2px; width: 74px; height: 38px; border-radius: 60% 58% 22% 22%; background: rgba(48,105,73,0.68); box-shadow: 28px 6px 0 rgba(64,118,78,0.5), -22px 9px 0 rgba(44,92,63,0.42); }
+.shrub-a { left: 540px; }
+.shrub-b { left: 1320px; transform: scale(0.8); }
+.scenery-butterfly { position: absolute; width: 8px; height: 6px; border-radius: 70% 20%; background: rgba(213,139,72,0.75); box-shadow: 6px 0 0 rgba(213,139,72,0.75); animation: sceneryButterflyFloat 5.2s ease-in-out infinite; }
+.butterfly-a { left: 760px; bottom: 115px; }
+.butterfly-b { left: 1180px; bottom: 150px; animation-delay: -2.4s; transform: scale(0.78); }
+
+.scenery-solar-panel { position: absolute; left: 260px; bottom: 4px; width: 96px; height: 54px; background: #26394b; border: 5px solid #55697a; transform: skewY(-8deg); box-shadow: 0 10px 0 -6px #65594f; }
+.scenery-solar-panel span { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(125,211,252,0.5); }
+.scenery-solar-panel span:nth-child(1) { left: 25%; }
+.scenery-solar-panel span:nth-child(2) { left: 50%; }
+.scenery-solar-panel span:nth-child(3) { left: 75%; }
+.scenery-signal-tower { position: absolute; left: 1240px; bottom: 0; width: 7px; height: 112px; background: #525b61; clip-path: polygon(38% 0, 62% 0, 100% 100%, 74% 100%, 55% 30%, 45% 30%, 26% 100%, 0 100%); }
+.scenery-signal-tower::before { content: ''; position: absolute; top: -5px; left: 1px; width: 5px; height: 5px; border-radius: 999px; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+.signal-pulse { position: absolute; top: -3px; left: 3px; width: 25px; height: 25px; border: 1px solid rgba(56,189,248,0.62); border-radius: 999px; animation: scenerySignalPulse 2.5s linear infinite; }
+.signal-pulse-b { animation-delay: -1.25s; }
+.scenery-cable-light { position: absolute; bottom: 28px; width: 5px; height: 5px; border-radius: 999px; background: #60a5fa; box-shadow: 0 0 11px rgba(96,165,250,0.62); animation: sceneryTwinkle 2.2s ease-in-out infinite; }
+.cable-light-a { left: 720px; }
+.cable-light-b { left: 1030px; animation-delay: -1.1s; }
+
+.scenery-string-lights { position: absolute; left: 160px; bottom: 150px; width: 1420px; height: 34px; border-top: 2px solid rgba(86,67,53,0.28); transform: rotate(-1deg); display: flex; justify-content: space-around; }
+.scenery-string-lights span { width: 6px; height: 8px; margin-top: -2px; border-radius: 50% 50% 60% 60%; background: #f59e0b; box-shadow: 0 0 12px rgba(245,158,11,0.55); animation: sceneryTwinkle 3.1s ease-in-out infinite; }
+.scenery-bench { position: absolute; left: 930px; bottom: 0; width: 150px; height: 42px; border-top: 9px solid #89684d; border-bottom: 8px solid #89684d; }
+.scenery-bench span { position: absolute; top: 0; width: 7px; height: 48px; background: #5d4a3d; }
+.scenery-bench span:first-child { left: 18px; }
+.scenery-bench span:last-child { right: 18px; }
+.scenery-steam { position: absolute; left: 530px; bottom: 44px; width: 18px; height: 36px; border-radius: 50%; border-left: 2px solid rgba(106,92,82,0.32); animation: scenerySteamRise 3.4s ease-out infinite; }
+.steam-b { left: 548px; animation-delay: -1.6s; }
+
+.scenery-banner { position: absolute; bottom: 38px; width: 42px; height: 64px; background: rgba(55,95,122,0.62); border-radius: 2px 8px 8px 2px; transform-origin: left center; animation: sceneryBannerWave 4s ease-in-out infinite; }
+.scenery-banner::before { content: ''; position: absolute; left: -6px; top: -34px; width: 5px; height: 124px; background: #5a514a; }
+.banner-a { left: 330px; }
+.banner-b { left: 1430px; background: rgba(74,126,156,0.52); animation-delay: -2s; }
+.scenery-wind-lines { position: absolute; bottom: 120px; width: 90px; height: 1px; background: linear-gradient(90deg, transparent, rgba(73,93,108,0.34), transparent); animation: sceneryWindSweep 4.8s linear infinite; }
+.wind-line-a { left: 720px; }
+.wind-line-b { left: 1080px; bottom: 156px; animation-delay: -2.3s; }
+
+.scenery-clothesline { position: absolute; left: 260px; bottom: 128px; width: 1220px; height: 1px; background: rgba(107,77,67,0.36); display: flex; justify-content: space-around; }
+.scenery-clothesline span { width: 24px; height: 34px; margin-top: 1px; background: rgba(174,95,111,0.5); clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%); animation: scenerySway 4.7s ease-in-out infinite; transform-origin: top center; }
+.scenery-clothesline span:nth-child(2) { background: rgba(191,151,91,0.5); animation-delay: -1s; }
+.scenery-clothesline span:nth-child(3) { background: rgba(101,136,121,0.5); animation-delay: -2s; }
+.scenery-clothesline span:nth-child(4) { background: rgba(112,118,151,0.48); animation-delay: -3s; }
+.scenery-potted-plant { position: absolute; bottom: 0; width: 28px; height: 45px; border-bottom: 18px solid #9a6957; border-left: 5px solid transparent; border-right: 5px solid transparent; }
+.scenery-potted-plant::before { content: ''; position: absolute; bottom: 9px; left: 8px; width: 12px; height: 32px; border-radius: 60% 10%; background: #648266; box-shadow: -9px 6px 0 #6f8f70, 10px 9px 0 #58765c; }
+.plant-a { left: 590px; }
+.plant-b { left: 1210px; transform: scale(0.85); }
+
+.scenery-wayfinder { position: absolute; left: 700px; bottom: 0; width: 7px; height: 118px; background: #514b47; }
+.scenery-wayfinder span { position: absolute; left: 4px; width: 92px; height: 24px; background: #6f655d; clip-path: polygon(0 0, 82% 0, 100% 50%, 82% 100%, 0 100%); }
+.scenery-wayfinder span:first-child { top: 15px; }
+.scenery-wayfinder span:last-child { top: 49px; transform: scaleX(-1); left: -89px; }
+.scenery-star-glint { position: absolute; width: 8px; height: 8px; background: #f8d889; clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: sceneryGlint 4s ease-in-out infinite; }
+.glint-a { left: 1040px; bottom: 160px; }
+.glint-b { left: 1280px; bottom: 205px; animation-delay: -1.6s; }
+.glint-c { left: 1540px; bottom: 135px; animation-delay: -2.8s; }
+
 html {
   scroll-behavior: smooth;
   font-feature-settings: "palt" 1;
@@ -320,22 +425,23 @@ body {
   overflow: hidden;
 }
 
-.font-serif {
-  font-family: 'Newsreader', 'Shippori Mincho', Georgia, serif;
-}
-
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
-}
+.font-serif { font-family: 'Newsreader', 'Shippori Mincho', Georgia, serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
 
 @media (max-width: 720px) {
   .ambient-cloud-c,
   .ambient-birds-b,
   .ambient-leaf:nth-of-type(n+5),
   .ambient-mote:nth-of-type(n+10),
-  .ambient-firefly:nth-of-type(n+6) {
+  .ambient-firefly:nth-of-type(n+6),
+  .scenery-grass:nth-of-type(3n),
+  .scenery-rock-2,
+  .scenery-string-lights span:nth-child(even) {
     display: none;
   }
+
+  .scenery-tree { opacity: 0.68; }
+  .scenery-zone { opacity: 0.82; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -349,7 +455,19 @@ body {
   .ambient-mote,
   .ambient-leaf,
   .ambient-firefly,
-  .ambient-horizon-haze {
+  .ambient-horizon-haze,
+  .scenery-tree-crown,
+  .scenery-grass,
+  .scenery-lantern-light,
+  .scenery-butterfly,
+  .signal-pulse,
+  .scenery-cable-light,
+  .scenery-string-lights span,
+  .scenery-steam,
+  .scenery-banner,
+  .scenery-wind-lines,
+  .scenery-clothesline span,
+  .scenery-star-glint {
     animation: none !important;
     transition: none !important;
   }
