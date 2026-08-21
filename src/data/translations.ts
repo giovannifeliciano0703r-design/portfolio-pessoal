@@ -145,24 +145,75 @@ export const APP_COPY = {
   }
 } as const;
 
-const WORLD_EN: Record<WorldKey, Partial<WorldArea>> = {
+type WorldTranslation = Pick<WorldArea, 'name' | 'label' | 'title' | 'role' | 'description' | 'themeNote'>;
+
+const WORLD_PT: Record<WorldKey, WorldTranslation> = {
+  moss: {
+    name: 'Fercal, DF',
+    label: 'origens / natureza / silêncio',
+    title: 'Fercal & Sobradinho, Distrito Federal',
+    role: 'Nascido em Sobradinho, criado na Fercal',
+    description: 'Sou brasileiro, nascido no Hospital Regional de Sobradinho e criado na Fercal, no Distrito Federal, onde vivo até hoje. Cresci próximo da natureza e de ambientes tranquilos, algo que valorizo e que também influencia a forma paciente e constante como encaro meus estudos.',
+    themeNote: 'A tranquilidade do cerrado, o silêncio da natureza e o foco nos estudos com paciência e constância.'
+  },
+  taupe: {
+    name: 'Marco 7.4 km',
+    label: 'formação / certificados / projetos',
+    title: 'Marco 7.4 km — Desenvolvimento em Tecnologia',
+    role: 'Cursos, certificados e projetos',
+    description: 'Este marco reúne minha evolução em tecnologia: cursos em andamento, certificados concluídos e projetos práticos que estou desenvolvendo para fortalecer meus conhecimentos.',
+    themeNote: 'Um ponto dedicado ao aprendizado técnico, às certificações e à construção de projetos reais.'
+  },
+  islog: {
+    name: 'Marco 9.9 km',
+    label: 'marco / 9.9 km',
+    title: 'Marco 9.9 km',
+    role: 'Ponto de descanso no percurso',
+    description: 'Espaço de descanso e contemplação localizado no quilômetro 9.9 da caminhada.',
+    themeNote: 'Espaço de descanso e contemplação ao longo do percurso.'
+  },
+  ojicra: {
+    name: 'Marco 12.4 km',
+    label: 'marco / 12.4 km',
+    title: 'Marco 12.4 km',
+    role: 'Mirante e fortificação no percurso',
+    description: 'Torre de vigia e mirante com visão panorâmica do trajeto no quilômetro 12.4.',
+    themeNote: 'Torre de vigia e mirante com visão panorâmica do trajeto.'
+  },
+  monoomoi: {
+    name: 'Marco 14.6 km',
+    label: 'marco / 14.6 km',
+    title: 'Marco 14.6 km',
+    role: 'Ponto de parada e reflexão',
+    description: 'Espaço acolhedor e atelier de parada localizado no quilômetro 14.6 da caminhada.',
+    themeNote: 'Espaço acolhedor e atelier de parada ao longo do percurso.'
+  },
+  monoerabi: {
+    name: 'Marco 16.4 km',
+    label: 'marco / 16.4 km',
+    title: 'Marco 16.4 km',
+    role: 'Ponto de observação final',
+    description: 'Último marco de observação antes do portal que conduz ao final da jornada no quilômetro 16.4.',
+    themeNote: 'Último marco de observação antes do portal que conduz ao final da jornada.'
+  }
+};
+
+const WORLD_EN: Record<WorldKey, WorldTranslation> = {
   moss: {
     name: 'Fercal, Federal District',
     label: 'origins / nature / quiet',
     title: 'Fercal & Sobradinho, Federal District',
     role: 'Born in Sobradinho, raised in Fercal',
-    description: 'I am Brazilian, born at the Regional Hospital of Sobradinho and raised in Fercal, a city in the Federal District where I still live today. I grew up close to nature and quiet surroundings, something I still value — I prefer calm places that let me think clearly and reconnect with myself. That calm also reflects how I approach my studies: patiently and consistently, one step at a time.',
-    event: 'origins',
+    description: 'I am Brazilian, born at the Regional Hospital of Sobradinho and raised in Fercal, in the Federal District, where I still live today. I grew up close to nature and quiet surroundings, something I value and that also influences the patient and consistent way I approach my studies.',
     themeNote: 'The calm of the Cerrado, the quiet of nature and a patient, consistent approach to learning.'
   },
   taupe: {
     name: 'Milestone 7.4 km',
-    label: 'milestone / 7.4 km',
-    title: 'Milestone 7.4 km',
-    role: 'Projects, courses and certifications',
-    description: 'A milestone dedicated to my technical growth, where I bring together courses, certifications and projects that represent my progress in technology.',
-    event: 'connect',
-    themeNote: 'A checkpoint for technical growth, learning and practical development.'
+    label: 'education / certificates / projects',
+    title: 'Milestone 7.4 km — Technology Development',
+    role: 'Courses, certificates and projects',
+    description: 'This milestone brings together my growth in technology: courses in progress, completed certificates and practical projects I am developing to strengthen my skills.',
+    themeNote: 'A checkpoint dedicated to technical learning, certifications and building real projects.'
   },
   islog: {
     name: 'Milestone 9.9 km',
@@ -198,82 +249,87 @@ const WORLD_EN: Record<WorldKey, Partial<WorldArea>> = {
   }
 };
 
+const PROJECT_PT: Record<string, Partial<Project>> = {
+  'rpg-app': {
+    title: 'Aplicativo de RPG',
+    tagline: 'Aplicativo de RPG interativo com atributos, personagens e mecânicas de combate',
+    description: 'Projeto prático de programação focado no desenvolvimento de um sistema de RPG e lógica de jogos.',
+    fullOverview: 'Projeto desenvolvido durante minha jornada em TI para praticar estruturas de dados, progressão, classes, atributos de personagens e narrativa interativa.',
+    languages: ['Python', 'Lógica de Programação', 'Estruturas de Dados'],
+    highlightFeatures: ['Criação e gerenciamento de personagens', 'Cálculo de atributos e combate', 'Estrutura modular para expansão', 'Foco em legibilidade e boas práticas'],
+    metrics: [{ label: 'Status', value: 'Em Desenvolvimento' }, { label: 'Foco', value: 'Lógica & RPG' }, { label: 'Autor', value: 'Giovanni.FJ' }]
+  },
+  'site-senai': {
+    title: 'Site SENAI',
+    tagline: 'Site institucional e interativo para apresentar iniciativas, equipes e competições do SENAI',
+    description: 'Projeto em desenvolvimento com foco em tecnologia, robótica e competições do SENAI.',
+    fullOverview: 'Estou desenvolvendo um site moderno e responsivo para o SENAI, reunindo informações sobre modalidades, equipes, robótica e competições e buscando uma experiência de qualidade em computadores e dispositivos móveis.',
+    license: 'Projeto acadêmico',
+    highlightFeatures: ['Interface moderna e responsiva', 'Seções de modalidades, equipes e competições', 'Experiência otimizada para diferentes telas', 'Evolução contínua de conteúdo e usabilidade'],
+    metrics: [{ label: 'Status', value: 'Em Desenvolvimento' }, { label: 'Instituição', value: 'SENAI' }, { label: 'Foco', value: 'Web & Robótica' }]
+  },
+  'codex-healthkit': {
+    tagline: 'Verificações de integridade baseadas em metadados para ambientes locais do Codex CLI e agentes',
+    description: 'Ferramenta de diagnóstico que evita credenciais e conteúdo de conversas.',
+    fullOverview: 'Realiza diagnósticos não intrusivos em ambientes locais de LLM, validando processos e disponibilidade sem analisar prompts privados ou chaves secretas.',
+    highlightFeatures: ['Telemetria sem exposição de credenciais', 'Verificações rápidas de processos', 'Saída JSON para automação', 'Compatibilidade com macOS, Linux e Docker']
+  },
+  'public-source-extractor': {
+    tagline: 'CLI que converte páginas públicas em Markdown limpo ou JSON versionado para fluxos com IA',
+    description: 'Ferramenta que transforma páginas públicas em conteúdo estruturado para pesquisa e IA.',
+    fullOverview: 'Extrai conteúdo de alto valor, removendo elementos desnecessários e preservando hierarquia, código e metadados úteis.',
+    highlightFeatures: ['Extração semântica', 'Snapshots JSON versionados', 'Preservação de tabelas e matemática', 'Extração paralela de URLs']
+  },
+  'walkable-atlas-engine': {
+    tagline: 'Motor 2D com paralaxe e gerenciamento de estado para portfólios interativos',
+    description: 'Motor visual e máquina de estados que alimentam a experiência caminhável do portfólio.',
+    fullOverview: 'Motor TypeScript de alto desempenho com paralaxe, áudio procedural, controles por toque e transições de interface.',
+    highlightFeatures: ['Renderização fluida', 'Áudio procedural', 'Gerenciamento de jornada', 'Geração de lembranças visuais']
+  }
+};
+
 const PROJECT_EN: Record<string, Partial<Project>> = {
   'rpg-app': {
     title: 'RPG Application',
     tagline: 'Interactive RPG application with attributes, characters and combat mechanics',
-    description: 'My first practical programming project, focused on building a complete RPG system and game logic.',
-    fullOverview: 'Developed by Giovanni Feliciano de Jesus, this RPG application is one of the first practical projects in my IT journey. It explores data structures, level progression, classes, character attributes and interactive narrative.',
-    highlightFeatures: [
-      'Character sheet creation and management system',
-      'Dynamic attribute calculations and combat formulas',
-      'Modular structure for expanding quests and items',
-      'Focus on programming best practices and code readability'
-    ],
-    metrics: [
-      { label: 'Status', value: 'In Development' },
-      { label: 'Focus', value: 'Logic & RPG' },
-      { label: 'Author', value: 'Giovanni.FJ' }
-    ]
+    description: 'Practical programming project focused on developing an RPG system and game logic.',
+    fullOverview: 'A project developed during my IT journey to practice data structures, progression, classes, character attributes and interactive narrative.',
+    languages: ['Python', 'Programming Logic', 'Data Structures'],
+    highlightFeatures: ['Character creation and management', 'Attribute and combat calculations', 'Modular structure for expansion', 'Focus on readability and best practices'],
+    metrics: [{ label: 'Status', value: 'In Development' }, { label: 'Focus', value: 'Logic & RPG' }, { label: 'Author', value: 'Giovanni.FJ' }]
   },
   'site-senai': {
     title: 'SENAI Website',
     tagline: 'Institutional and interactive website presenting SENAI initiatives, teams and competitions',
-    description: 'A website in development with a modern experience focused on technology, robotics and competitions at SENAI.',
-    fullOverview: 'I am developing a website for SENAI with a modern, responsive and visually engaging presentation. The project brings together information about modalities, teams, robotics and competitions while highlighting technology initiatives and providing a strong experience on desktop and mobile devices.',
-    languages: ['React', 'TypeScript', 'CSS', 'Web Design'],
+    description: 'Project in development focused on SENAI technology, robotics and competitions.',
+    fullOverview: 'I am developing a modern responsive website for SENAI, bringing together information about modalities, teams, robotics and competitions while providing a strong experience on desktop and mobile devices.',
     license: 'Academic project',
-    highlightFeatures: [
-      'Modern responsive interface aligned with the project identity',
-      'Sections dedicated to modalities, teams and robotics competitions',
-      'Optimized experience for desktop, tablet and mobile',
-      'Continuous evolution with content and usability improvements'
-    ],
-    metrics: [
-      { label: 'Status', value: 'In Development' },
-      { label: 'Institution', value: 'SENAI' },
-      { label: 'Focus', value: 'Web & Robotics' }
-    ]
+    highlightFeatures: ['Modern responsive interface', 'Sections for modalities, teams and competitions', 'Experience optimized across screen sizes', 'Continuous content and usability improvements'],
+    metrics: [{ label: 'Status', value: 'In Development' }, { label: 'Institution', value: 'SENAI' }, { label: 'Focus', value: 'Web & Robotics' }]
   },
   'codex-healthkit': {
     tagline: 'Metadata-only health checks for local Codex CLI and agent environments',
-    description: 'A metadata-only health check for local Codex CLI environments that avoids credentials and conversation content.',
-    fullOverview: 'codex-healthkit conducts non-intrusive diagnostics on local LLM runtimes, validating token pipelines, process memory footprints and daemon availability without scanning private prompt sessions or secret keys.'
+    description: 'Diagnostic tooling that avoids credentials and conversation content.',
+    fullOverview: 'Performs non-intrusive diagnostics on local LLM environments, validating processes and availability without scanning private prompts or secret keys.',
+    highlightFeatures: ['Zero-credential telemetry', 'Fast process checks', 'JSON output for automation', 'macOS, Linux and Docker compatibility']
   },
   'public-source-extractor': {
-    tagline: 'CLI that converts public web pages into clean Markdown or versioned JSON for LLM RAG pipelines',
-    description: 'A fast CLI that converts public HTTP and HTTPS pages into structured Markdown or versioned JSON for research and AI workflows.'
+    tagline: 'CLI converting public pages into clean Markdown or versioned JSON for AI workflows',
+    description: 'Tool that converts public pages into structured content for research and AI.',
+    fullOverview: 'Extracts high-value content while removing unnecessary elements and preserving hierarchy, code and useful metadata.',
+    highlightFeatures: ['Semantic extraction', 'Versioned JSON snapshots', 'Table and math preservation', 'Parallel URL extraction']
   },
   'walkable-atlas-engine': {
-    tagline: 'Micro 2D parallax physics engine and Living Atlas state manager for web portfolios',
-    description: 'The open-source interactive canvas and character state machine powering the Walkable Atlas experience.'
-  }
-};
-
-const PROJECT_PT: Record<string, Partial<Project>> = {
-  'codex-healthkit': {
-    tagline: 'Verificações de integridade baseadas apenas em metadados para ambientes locais do Codex CLI e agentes',
-    description: 'Verificação de integridade para ambientes locais do Codex CLI que evita credenciais e conteúdo de conversas.',
-    fullOverview: 'O codex-healthkit realiza diagnósticos não intrusivos em ambientes locais de LLM, validando pipelines, uso de memória e disponibilidade de processos sem analisar prompts privados ou chaves secretas.',
-    highlightFeatures: ['Telemetria sem exposição de credenciais', 'Verificações rápidas de memória e processos', 'Saída JSON estruturada para automação', 'Compatível com macOS, Linux e contêineres Docker']
-  },
-  'public-source-extractor': {
-    tagline: 'CLI que converte páginas públicas em Markdown limpo ou JSON versionado para pipelines RAG com LLMs',
-    description: 'CLI rápido que transforma páginas HTTP e HTTPS públicas em Markdown estruturado ou JSON versionado para pesquisa e fluxos de IA.',
-    fullOverview: 'Ferramenta criada para fornecer contexto de alta qualidade a modelos de IA, removendo elementos desnecessários e preservando hierarquia, blocos de código e metadados relevantes.',
-    highlightFeatures: ['Extração semântica para janelas de contexto de LLM', 'Snapshots JSON determinísticos e versionados', 'Preservação automática de tabelas e matemática', 'Extração paralela de múltiplas URLs com respeito a limites']
-  },
-  'walkable-atlas-engine': {
-    tagline: 'Motor 2D de física com paralaxe e gerenciador de estado para portfólios interativos',
-    description: 'Canvas interativo e máquina de estados do personagem que alimentam a experiência do Walkable Atlas.',
-    fullOverview: 'Motor TypeScript de alto desempenho com rolagem horizontal em paralaxe, áudio procedural, controles por toque e transições para layouts de portfólio.',
-    highlightFeatures: ['Renderização leve e fluida', 'Sintetizador procedural com Web Audio API', 'Gerenciamento de jornada em múltiplas etapas', 'Gerador de constelação para lembranças visuais']
+    tagline: '2D parallax engine and state manager for interactive portfolios',
+    description: 'Visual engine and character state machine powering the portfolio’s walkable experience.',
+    fullOverview: 'High-performance TypeScript engine with parallax, procedural audio, touch controls and interface transitions.',
+    highlightFeatures: ['Fluid rendering', 'Procedural audio', 'Journey state management', 'Visual keepsake generation']
   }
 };
 
 export function localizeWorld(world: WorldArea, language: Language): WorldArea {
-  if (language === 'pt') return world;
-  return { ...world, ...WORLD_EN[world.key] };
+  const translation = language === 'pt' ? WORLD_PT[world.key] : WORLD_EN[world.key];
+  return { ...world, ...translation };
 }
 
 export function localizeWorlds(worlds: WorldArea[], language: Language): WorldArea[] {
@@ -281,6 +337,6 @@ export function localizeWorlds(worlds: WorldArea[], language: Language): WorldAr
 }
 
 export function localizeProject(project: Project, language: Language): Project {
-  const dictionary = language === 'en' ? PROJECT_EN : PROJECT_PT;
+  const dictionary = language === 'pt' ? PROJECT_PT : PROJECT_EN;
   return { ...project, ...(dictionary[project.id] || {}) };
 }
