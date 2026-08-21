@@ -17,8 +17,7 @@ import {
   Gamepad2,
   Globe2,
   CheckCircle2,
-  Clock3,
-  BookOpenCheck
+  Clock3
 } from 'lucide-react';
 
 const FERCAL_SIGN_IMAGE_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/%22_EU_AMO_FERCAL%22.jpg/1280px-%22_EU_AMO_FERCAL%22.jpg';
@@ -56,12 +55,9 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
       provider: 'Cisco Networking Academy',
       icon: <Code2 className="w-4 h-4 text-emerald-600" />,
     },
-  ];
-
-  const completedCourses = [
     {
       title: copy.linuxCourse,
-      provider: isPt ? 'Curso de Linux' : 'Linux Course',
+      provider: 'Cisco Networking Academy',
       icon: <Terminal className="w-4 h-4 text-neutral-700" />,
     },
   ];
@@ -214,28 +210,6 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
                       <div className="flex items-center gap-2">{course.icon}<span className="text-[10px] font-mono text-neutral-500">{course.provider}</span></div>
                       <span className="text-[10px] font-mono bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
                         <Clock3 className="w-3 h-3" /> {copy.inProgress}
-                      </span>
-                    </div>
-                    <h5 className="text-sm font-bold text-neutral-900">{course.title}</h5>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <div className="flex items-center gap-2 mb-3">
-                <BookOpenCheck className="w-4 h-4 text-neutral-700" />
-                <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-700 font-bold">
-                  {isPt ? 'Cursos concluídos' : 'Completed courses'}
-                </h4>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {completedCourses.map((course) => (
-                  <div key={course.title} className="p-4 rounded-xl bg-white border border-neutral-200 hover:border-neutral-400 transition-colors">
-                    <div className="flex items-center justify-between gap-3 mb-2">
-                      <div className="flex items-center gap-2">{course.icon}<span className="text-[10px] font-mono text-neutral-500">{course.provider}</span></div>
-                      <span className="text-[10px] font-mono bg-neutral-100 text-neutral-700 px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> {copy.completed}
                       </span>
                     </div>
                     <h5 className="text-sm font-bold text-neutral-900">{course.title}</h5>
