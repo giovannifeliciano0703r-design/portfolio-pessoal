@@ -8,6 +8,7 @@ import { ProjectDetailsModal } from './components/ProjectDetailsModal';
 import { ConstellationKeepsakeModal } from './components/ConstellationKeepsakeModal';
 import { ProfileModal } from './components/ProfileModal';
 import { AmbientLife } from './components/AmbientLife';
+import { sound } from './utils/audioEngine';
 
 const senaiSiteProject: Project = {
   id: 'site-senai',
@@ -40,8 +41,7 @@ if (!PROJECTS_DATA.some((project) => project.id === senaiSiteProject.id)) {
 export default function App() {
   const [language, setLanguage] = useState<Language>('pt');
   const [visitedWorlds, setVisitedWorlds] = useState<Set<string>>(new Set());
-  
-  // Modals state
+
   const [activeDiscoveryWorld, setActiveDiscoveryWorld] = useState<WorldArea | null>(null);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [isKeepsakeOpen, setIsKeepsakeOpen] = useState(false);
@@ -53,7 +53,6 @@ export default function App() {
     [activeProject, language]
   );
 
-  // O seletor PT/EN passa a controlar também metadados e idioma do documento.
   useEffect(() => {
     const copy = APP_COPY[language];
     document.documentElement.lang = language === 'pt' ? 'pt-BR' : 'en';
@@ -63,7 +62,32 @@ export default function App() {
     if (description) description.content = copy.pageDescription;
   }, [language]);
 
-  // Load visited worlds from localStorage if available
+  // Safari/iOS, Android e outros navegadores móveis só liberam Web Audio
+  // depois de uma interação real. Esta inicialização funciona com toque,
+  // mouse e teclado sem criar uma tela de bloqueio para o visitante.
+  useEffect(() => {
+    let activated = false;
+
+    const activateAudio = () => {
+      if (activated) return;
+      activated = true;
+      sound.ensureReady();
+      window.removeEventListener('pointerdown', activateAudio);
+      window.removeEventListener('keydown', activateAudio);
+      window.removeEventListener('touchstart', activateAudio);
+    };
+
+    window.addEventListener('pointerdown', activateAudio, { passive: true });
+    window.addEventListener('touchstart', activateAudio, { passive: true });
+    window.addEventListener('keydown', activateAudio);
+
+    return () => {
+      window.removeEventListener('pointerdown', activateAudio);
+      window.removeEventListener('touchstart', activateAudio);
+      window.removeEventListener('keydown', activateAudio);
+    };
+  }, []);
+
   useEffect(() => {
     try {
       const saved = localStorage.getItem('giovanni_visited_worlds');
@@ -111,7 +135,6 @@ export default function App() {
 
       <AmbientLife />
 
-      {/* Profile & Biography Modal */}
       {isProfileOpen && (
         <ProfileModal
           language={language}
@@ -119,7 +142,6 @@ export default function App() {
         />
       )}
 
-      {/* Discovery World Card Modal */}
       {activeDiscoveryWorld && (
         <DiscoveryCardModal
           world={activeDiscoveryWorld}
@@ -132,7 +154,6 @@ export default function App() {
         />
       )}
 
-      {/* Project Details Modal */}
       {localizedProject && (
         <ProjectDetailsModal
           project={localizedProject}
@@ -141,7 +162,6 @@ export default function App() {
         />
       )}
 
-      {/* Constellation Keepsake Modal */}
       {isKeepsakeOpen && (
         <ConstellationKeepsakeModal
           visitedWorlds={visitedWorlds}
