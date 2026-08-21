@@ -18,7 +18,8 @@ import {
   Gamepad2,
   Globe2,
   CheckCircle2,
-  Clock3
+  Clock3,
+  BookOpenCheck
 } from 'lucide-react';
 
 interface DiscoveryCardModalProps {
@@ -49,9 +50,12 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
       provider: 'Cisco Networking Academy',
       icon: <Code2 className="w-4 h-4 text-emerald-600" />,
     },
+  ];
+
+  const completedCourses = [
     {
       title: copy.linuxCourse,
-      provider: isPt ? 'Formação em Linux' : 'Linux Training',
+      provider: isPt ? 'Curso de Linux' : 'Linux Course',
       icon: <Terminal className="w-4 h-4 text-neutral-700" />,
     },
   ];
@@ -186,7 +190,6 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
 
         {world.key === 'taupe' && (
           <div className="space-y-6 mb-6">
-            {/* Current courses */}
             <section>
               <div className="flex items-center gap-2 mb-3">
                 <GraduationCap className="w-4 h-4 text-amber-700" />
@@ -209,7 +212,28 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
               </div>
             </section>
 
-            {/* Certificates */}
+            <section>
+              <div className="flex items-center gap-2 mb-3">
+                <BookOpenCheck className="w-4 h-4 text-neutral-700" />
+                <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-700 font-bold">
+                  {isPt ? 'Cursos concluídos' : 'Completed courses'}
+                </h4>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {completedCourses.map((course) => (
+                  <div key={course.title} className="p-4 rounded-xl bg-white border border-neutral-200 hover:border-neutral-400 transition-colors">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <div className="flex items-center gap-2">{course.icon}<span className="text-[10px] font-mono text-neutral-500">{course.provider}</span></div>
+                      <span className="text-[10px] font-mono bg-neutral-100 text-neutral-700 px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3" /> {copy.completed}
+                      </span>
+                    </div>
+                    <h5 className="text-sm font-bold text-neutral-900">{course.title}</h5>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section>
               <div className="flex items-center gap-2 mb-3">
                 <Award className="w-4 h-4 text-emerald-700" />
@@ -217,7 +241,7 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
                   {isPt ? 'Meus certificados' : 'My certificates'}
                 </h4>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {certificates.map((certificate) => (
                   <div key={certificate.title} className="p-4 rounded-xl bg-white border border-neutral-200 hover:border-emerald-300 transition-colors">
                     <div className="flex items-center justify-between gap-2 mb-2">
@@ -233,7 +257,6 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
               </div>
             </section>
 
-            {/* Projects */}
             <section>
               <div className="flex items-center gap-2 mb-3">
                 <Code2 className="w-4 h-4 text-blue-700" />
