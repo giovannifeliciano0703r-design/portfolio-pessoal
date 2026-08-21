@@ -1,7 +1,6 @@
 import React from 'react';
 import { WorldArea, Language } from '../types';
 import { APP_COPY } from '../data/translations';
-import { FERCAL_LETREIRO_IMAGE, FERCAL_PANORAMICA_IMAGE } from '../data/fercalImages';
 import {
   X,
   ExternalLink,
@@ -22,6 +21,11 @@ import {
   BookOpenCheck
 } from 'lucide-react';
 
+const FERCAL_SIGN_IMAGE_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/%22_EU_AMO_FERCAL%22.jpg/1280px-%22_EU_AMO_FERCAL%22.jpg';
+const FERCAL_SIGN_SOURCE_URL = 'https://commons.wikimedia.org/wiki/File:%22_EU_AMO_FERCAL%22.jpg';
+const FERCAL_PANORAMA_IMAGE_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/BOA_VISTA%2C_Lado_de_l%C3%A1_da_serra%2C_Fercal_DF._-_panoramio.jpg/1280px-BOA_VISTA%2C_Lado_de_l%C3%A1_da_serra%2C_Fercal_DF._-_panoramio.jpg';
+const FERCAL_PANORAMA_SOURCE_URL = 'https://commons.wikimedia.org/wiki/File:BOA_VISTA,_Lado_de_l%C3%A1_da_serra,_Fercal_DF._-_panoramio.jpg';
+
 interface DiscoveryCardModalProps {
   world: WorldArea | null;
   language: Language;
@@ -36,8 +40,10 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
 }) => {
   if (!world) return null;
   const copy = APP_COPY[language];
-  const instagramUrl = 'https://www.instagram.com/p/C_1hzBcsTQv/';
   const isPt = language === 'pt';
+  const openOriginalImage = isPt
+    ? 'Abrir foto original no Wikimedia Commons'
+    : 'Open original photo on Wikimedia Commons';
 
   const certificates = [
     {
@@ -128,23 +134,24 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <a
-                href={instagramUrl}
+                href={FERCAL_SIGN_SOURCE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={copy.openFercalSign}
-                title={copy.openInstagram}
+                title={openOriginalImage}
                 className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-lg transition-all cursor-pointer flex flex-col focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
               >
                 <div className="relative h-64 sm:h-72 bg-neutral-100 overflow-hidden">
                   <img
-                    src={FERCAL_LETREIRO_IMAGE}
+                    src={FERCAL_SIGN_IMAGE_URL}
                     alt={copy.signAlt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     loading="eager"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                   />
                   <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 text-white px-2 py-1 rounded-full z-10 flex items-center gap-1.5">
-                    {copy.citySign} • Instagram <ExternalLink className="w-3 h-3" />
+                    {copy.citySign} • Wikimedia Commons <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
                 <div className="p-4">
@@ -153,27 +160,29 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
                     <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
                   </h4>
                   <p className="text-xs text-neutral-600 mt-1">{copy.fercalMonumentText}</p>
+                  <p className="text-[10px] font-mono text-neutral-400 mt-2">Foto: PHANTUNES • CC BY-SA 4.0</p>
                 </div>
               </a>
 
               <a
-                href={instagramUrl}
+                href={FERCAL_PANORAMA_SOURCE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={copy.openFercalPanorama}
-                title={copy.openInstagram}
+                title={openOriginalImage}
                 className="group rounded-2xl overflow-hidden bg-white border border-neutral-200 hover:border-emerald-500 hover:shadow-lg transition-all cursor-pointer flex flex-col focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
               >
                 <div className="relative h-64 sm:h-72 bg-neutral-100 overflow-hidden">
                   <img
-                    src={FERCAL_PANORAMICA_IMAGE}
+                    src={FERCAL_PANORAMA_IMAGE_URL}
                     alt={copy.panoramaAlt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     loading="eager"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                   />
                   <span className="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 text-white px-2 py-1 rounded-full z-10 flex items-center gap-1.5">
-                    {copy.aerialView} • Instagram <ExternalLink className="w-3 h-3" />
+                    {copy.aerialView} • Wikimedia Commons <ExternalLink className="w-3 h-3" />
                   </span>
                 </div>
                 <div className="p-4">
@@ -182,6 +191,7 @@ export const DiscoveryCardModal: React.FC<DiscoveryCardModalProps> = ({
                     <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
                   </h4>
                   <p className="text-xs text-neutral-600 mt-1">{copy.fercalPanoramaText}</p>
+                  <p className="text-[10px] font-mono text-neutral-400 mt-2">Foto: EDUARDO CUNHA • CC BY-SA 3.0</p>
                 </div>
               </a>
             </div>
