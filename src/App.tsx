@@ -7,6 +7,34 @@ import { ProjectDetailsModal } from './components/ProjectDetailsModal';
 import { ConstellationKeepsakeModal } from './components/ConstellationKeepsakeModal';
 import { ProfileModal } from './components/ProfileModal';
 
+const senaiSiteProject: Project = {
+  id: 'site-senai',
+  title: 'Site SENAI',
+  tagline: 'Site institucional e interativo desenvolvido para apresentar iniciativas, equipes e competições do SENAI',
+  description: 'Projeto em desenvolvimento voltado à criação de uma experiência web moderna para o SENAI, com destaque para tecnologia, robótica e competições.',
+  fullOverview: 'Estou desenvolvendo um site para o SENAI com foco em uma apresentação moderna, responsiva e visualmente atraente. O projeto reúne informações sobre modalidades, equipes, robótica e competições, buscando valorizar as iniciativas tecnológicas e proporcionar uma boa experiência em computadores e dispositivos móveis.',
+  repoUrl: 'https://github.com/giovannifeliciano0703r-design/Site-Senai',
+  version: 'em desenvolvimento',
+  languages: ['React', 'TypeScript', 'CSS', 'Web Design'],
+  license: 'Projeto acadêmico',
+  installCommand: 'git clone https://github.com/giovannifeliciano0703r-design/Site-Senai.git',
+  highlightFeatures: [
+    'Interface moderna e responsiva alinhada à identidade visual do projeto',
+    'Seções dedicadas às modalidades, equipes e competições de robótica',
+    'Experiência otimizada para computador, tablet e celular',
+    'Projeto em evolução contínua com melhorias de conteúdo e usabilidade'
+  ],
+  metrics: [
+    { label: 'Status', value: 'Em Desenvolvimento' },
+    { label: 'Instituição', value: 'SENAI' },
+    { label: 'Foco', value: 'Web & Robótica' }
+  ]
+};
+
+if (!PROJECTS_DATA.some((project) => project.id === senaiSiteProject.id)) {
+  PROJECTS_DATA.push(senaiSiteProject);
+}
+
 export default function App() {
   const [language, setLanguage] = useState<Language>('pt');
   const [visitedWorlds, setVisitedWorlds] = useState<Set<string>>(new Set(['moss']));
