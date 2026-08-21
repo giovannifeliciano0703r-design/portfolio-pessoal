@@ -62,7 +62,7 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
     camX: number;
     smoothCamX: number;
   }>({
-    x: 1200,
+    x: 0,
     y: 0,
     vx: 0,
     vy: 0,
@@ -76,7 +76,7 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
 
   // UI state for React (updated only when world changes or throttled)
   const [characterRenderState, setCharacterRenderState] = useState<CharacterState>({
-    x: 1200,
+    x: 0,
     y: 0,
     vx: 0,
     vy: 0,
@@ -90,11 +90,11 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
 
   const [activeWorld, setActiveWorld] = useState<WorldArea | null>(null);
   const [nearbyWorld, setNearbyWorld] = useState<WorldArea | null>(null);
-  const [isNearOrigin, setIsNearOrigin] = useState(false);
+  const [isNearOrigin, setIsNearOrigin] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [isSprinting, setIsSprinting] = useState(false);
-  const [distanceKm, setDistanceKm] = useState('1.2');
-  const [progressPercent, setProgressPercent] = useState(6);
+  const [distanceKm, setDistanceKm] = useState('0.0');
+  const [progressPercent, setProgressPercent] = useState(0);
   const [showMinimap, setShowMinimap] = useState(false);
 
   // Input states
@@ -111,7 +111,7 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
 
   // Teleport to landmark
   const handleTeleport = (xTarget: number) => {
-    physicsRef.current.x = xTarget;
+    physicsRef.current.x = Math.max(0, Math.min(totalWorldLength - 100, xTarget));
     physicsRef.current.vx = 0;
     physicsRef.current.isWalking = false;
     sound.playWhoosh();
@@ -119,8 +119,8 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
 
   // Detect active world and proximity
   const checkProximityAndWorlds = useCallback((xPos: number) => {
-    // Check Origin milestone (0 - 1600m)
-    const nearOrig = xPos >= 300 && xPos <= 1200;
+    // A origem começa no km 0.0 e permanece interativa até o marco de biografia.
+    const nearOrig = xPos >= 0 && xPos <= 1200;
     setIsNearOrigin(nearOrig);
 
     // Active world (region)
@@ -203,8 +203,8 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
         }
       }
 
-      // Update position
-      p.x = Math.max(100, Math.min(totalWorldLength - 100, p.x + p.vx * delta));
+      // Update position. O início real do mundo agora é 0.0 km.
+      p.x = Math.max(0, Math.min(totalWorldLength - 100, p.x + p.vx * delta));
       if (p.isWalking) {
         p.frameIndex += 1;
       }
@@ -277,6 +277,10 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (['input', 'textarea'].includes((e.target as HTMLElement).tagName?.toLowerCase())) return;
 
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) {
+        e.preventDefault();
+      }
+
       keysPressed.current[e.key] = true;
 
       // Explore key (E or Enter)
@@ -300,11 +304,19 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
       }
     };
 
+    const handleWindowBlur = () => {
+      keysPressed.current = {};
+      touchDirection.current = null;
+      setIsSprinting(false);
+    };
+
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', handleWindowBlur);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', handleWindowBlur);
     };
   }, [isNearOrigin, nearbyWorld, onExploreWorld, onOpenProfile]);
 
@@ -426,17 +438,17 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
             <button
               type="button"
               onClick={() => {
-                handleTeleport(600);
+                handleTeleport(0);
                 setShowMinimap(false);
               }}
               className="p-1.5 rounded-lg bg-neutral-100 hover:bg-amber-100 text-neutral-800 border border-neutral-200 transition-colors text-[11px] font-mono"
             >
               <div className="font-bold">Origem</div>
-              <div className="text-[9px] text-neutral-500">0.6 km</div>
+              <div className="text-[9px] text-neutral-500">0.0 km</div>
             </button>
 
             {/* 6 Worlds */}
-            {worlds.map((w, idx) => (
+            {worlds.map((w) => (
               <button
                 key={w.key}
                 type="button"
@@ -592,8 +604,10 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
               type="button"
               onTouchStart={() => (touchDirection.current = 'left')}
               onTouchEnd={() => (touchDirection.current = null)}
+              onTouchCancel={() => (touchDirection.current = null)}
               onMouseDown={() => (touchDirection.current = 'left')}
               onMouseUp={() => (touchDirection.current = null)}
+              onMouseLeave={() => (touchDirection.current = null)}
               className="w-12 h-12 rounded-xl bg-neutral-100 active:bg-neutral-300 flex items-center justify-center text-lg font-bold text-neutral-800 select-none cursor-pointer"
             >
               ◀
@@ -602,8 +616,10 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
               type="button"
               onTouchStart={() => (touchDirection.current = 'right')}
               onTouchEnd={() => (touchDirection.current = null)}
+              onTouchCancel={() => (touchDirection.current = null)}
               onMouseDown={() => (touchDirection.current = 'right')}
               onMouseUp={() => (touchDirection.current = null)}
+              onMouseLeave={() => (touchDirection.current = null)}
               className="w-12 h-12 rounded-xl bg-neutral-100 active:bg-neutral-300 flex items-center justify-center text-lg font-bold text-neutral-800 select-none cursor-pointer"
             >
               ▶
