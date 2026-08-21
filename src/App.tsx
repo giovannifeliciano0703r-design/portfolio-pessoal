@@ -38,7 +38,7 @@ if (!PROJECTS_DATA.some((project) => project.id === senaiSiteProject.id)) {
 
 export default function App() {
   const [language, setLanguage] = useState<Language>('pt');
-  const [visitedWorlds, setVisitedWorlds] = useState<Set<string>>(new Set(['moss']));
+  const [visitedWorlds, setVisitedWorlds] = useState<Set<string>>(new Set());
   
   // Modals state
   const [activeDiscoveryWorld, setActiveDiscoveryWorld] = useState<WorldArea | null>(null);
