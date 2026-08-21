@@ -6,6 +6,7 @@ import { DiscoveryCardModal } from './components/DiscoveryCardModal';
 import { ProjectDetailsModal } from './components/ProjectDetailsModal';
 import { ConstellationKeepsakeModal } from './components/ConstellationKeepsakeModal';
 import { ProfileModal } from './components/ProfileModal';
+import { AmbientLife } from './components/AmbientLife';
 
 const senaiSiteProject: Project = {
   id: 'site-senai',
@@ -90,6 +91,8 @@ export default function App() {
         onLanguageChange={setLanguage}
         onWorldVisited={handleWorldVisited}
       />
+
+      <AmbientLife />
 
       {/* Profile & Biography Modal */}
       {isProfileOpen && (
