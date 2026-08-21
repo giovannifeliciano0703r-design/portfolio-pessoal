@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { WORLDS_DATA, PROJECTS_DATA } from './data/portfolioData';
+import { APP_COPY, localizeProject, localizeWorlds } from './data/translations';
 import { WorldArea, Project, Language } from './types';
 import { WalkableWorld } from './components/WalkableWorld';
 import { DiscoveryCardModal } from './components/DiscoveryCardModal';
@@ -46,6 +47,22 @@ export default function App() {
   const [isKeepsakeOpen, setIsKeepsakeOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+  const localizedWorlds = useMemo(() => localizeWorlds(WORLDS_DATA, language), [language]);
+  const localizedProject = useMemo(
+    () => (activeProject ? localizeProject(activeProject, language) : null),
+    [activeProject, language]
+  );
+
+  // O seletor PT/EN passa a controlar também metadados e idioma do documento.
+  useEffect(() => {
+    const copy = APP_COPY[language];
+    document.documentElement.lang = language === 'pt' ? 'pt-BR' : 'en';
+    document.title = copy.pageTitle;
+
+    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (description) description.content = copy.pageDescription;
+  }, [language]);
+
   // Load visited worlds from localStorage if available
   useEffect(() => {
     try {
@@ -81,7 +98,7 @@ export default function App() {
   return (
     <div className="w-full min-h-screen bg-[#faf8f5] text-[#242424] overflow-x-hidden font-sans">
       <WalkableWorld
-        worlds={WORLDS_DATA}
+        worlds={localizedWorlds}
         language={language}
         visitedWorlds={visitedWorlds}
         onExploreWorld={(world) => setActiveDiscoveryWorld(world)}
@@ -116,9 +133,9 @@ export default function App() {
       )}
 
       {/* Project Details Modal */}
-      {activeProject && (
+      {localizedProject && (
         <ProjectDetailsModal
-          project={activeProject}
+          project={localizedProject}
           language={language}
           onClose={() => setActiveProject(null)}
         />
@@ -128,7 +145,7 @@ export default function App() {
       {isKeepsakeOpen && (
         <ConstellationKeepsakeModal
           visitedWorlds={visitedWorlds}
-          worlds={WORLDS_DATA}
+          worlds={localizedWorlds}
           language={language}
           onClose={() => setIsKeepsakeOpen(false)}
         />
