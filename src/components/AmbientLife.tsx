@@ -13,7 +13,6 @@ const driftingLeaves = Array.from({ length: 7 }, (_, index) => ({
   left: `${8 + ((index * 23) % 88)}%`,
   delay: `${-2.4 * index}s`,
   duration: `${12 + (index % 4) * 3}s`,
-  scale: 0.65 + (index % 3) * 0.16,
 }));
 
 const groundFireflies = Array.from({ length: 8 }, (_, index) => ({
@@ -60,7 +59,6 @@ export const AmbientLife: React.FC = React.memo(() => {
             left: leaf.left,
             animationDelay: leaf.delay,
             animationDuration: leaf.duration,
-            ['--leaf-scale' as string]: leaf.scale,
           }}
         />
       ))}
