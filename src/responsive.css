@@ -1,0 +1,319 @@
+:root {
+  --journey-progress: 0;
+  --journey-warmth: 0;
+  --journey-night: 0;
+  --journey-stars: 0;
+  --journey-morning: 1;
+  --journey-sun-x: 12%;
+  --journey-sun-y: 17%;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+html {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior: none;
+}
+
+button,
+a,
+[role='button'] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+#walkable-world-stage {
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100svh;
+}
+
+#walkable-world-stage > header {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+  padding-right: max(0.75rem, env(safe-area-inset-right));
+}
+
+#walkable-world-stage > footer {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+#walkable-world-stage button {
+  min-height: 36px;
+}
+
+/* Ciclo visual da jornada: manhã -> dia -> pôr do sol -> noite. */
+.ambient-life::before,
+.ambient-life::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 900ms linear, background 900ms linear;
+}
+
+.ambient-life::before {
+  background:
+    radial-gradient(circle at 72% 22%, rgba(255, 213, 142, 0.28), transparent 34%),
+    linear-gradient(to bottom, rgba(255, 195, 126, 0.2), rgba(210, 115, 83, 0.08) 52%, transparent 82%);
+  opacity: var(--journey-warmth);
+}
+
+.ambient-life::after {
+  background:
+    linear-gradient(to bottom, rgba(25, 38, 67, 0.58), rgba(48, 44, 69, 0.3) 55%, rgba(34, 41, 51, 0.2));
+  opacity: calc(var(--journey-night) * 0.78);
+}
+
+.ambient-vignette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 10% 18%, rgba(255,255,255,0.95) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 24% 29%, rgba(255,255,255,0.85) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 39% 13%, rgba(255,255,255,0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 54% 25%, rgba(255,255,255,0.8) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 68% 11%, rgba(255,255,255,0.92) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 81% 31%, rgba(255,255,255,0.86) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 92% 16%, rgba(255,255,255,0.94) 0 1px, transparent 1.6px);
+  opacity: calc(var(--journey-stars) * 0.8);
+  transition: opacity 1s linear;
+}
+
+.ambient-sun-glow {
+  left: var(--journey-sun-x) !important;
+  top: var(--journey-sun-y) !important;
+  right: auto !important;
+  transform: translate(-50%, -50%);
+  opacity: calc(0.82 - var(--journey-night) * 0.64) !important;
+  transition: left 700ms linear, top 700ms linear, opacity 900ms linear;
+}
+
+html[data-journey-time='night'] .ambient-firefly {
+  opacity: 1;
+  filter: brightness(1.18);
+}
+
+html[data-journey-time='night'] .scenery-lantern-light,
+html[data-journey-time='night'] .scenery-string-lights span,
+html[data-journey-time='night'] .scenery-cable-light {
+  filter: brightness(1.25);
+}
+
+/* Dá contraste ao conteúdo sem impedir que o usuário selecione texto em cartões e modais. */
+#discovery-card-modal,
+#discovery-card-modal *,
+.fixed.inset-0.z-50,
+.fixed.inset-0.z-50 * {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#discovery-card-modal button,
+.fixed.inset-0.z-50 button {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (max-width: 720px) {
+  #walkable-world-stage > header {
+    display: grid !important;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.5rem;
+    row-gap: 0.45rem;
+    align-items: center;
+    padding-bottom: 0.55rem;
+  }
+
+  #walkable-world-stage > header > div:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: max-content;
+  }
+
+  #walkable-world-stage > header > div:nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  #walkable-world-stage > header > div:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    gap: 0.3rem !important;
+  }
+
+  #walkable-world-stage > header button {
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  #walkable-world-stage > .top-16 {
+    top: calc(env(safe-area-inset-top) + 6.4rem) !important;
+    max-height: calc(100dvh - 10rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  #walkable-world-stage > footer button {
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  #walkable-world-stage > footer > div {
+    max-width: 100%;
+  }
+
+  #discovery-card-overlay {
+    align-items: flex-end;
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  #discovery-card-modal {
+    max-height: calc(100dvh - env(safe-area-inset-top) - 1rem) !important;
+    border-bottom-left-radius: max(1rem, env(safe-area-inset-bottom));
+    border-bottom-right-radius: max(1rem, env(safe-area-inset-bottom));
+    overscroll-behavior: contain;
+  }
+
+  .fixed.inset-0.z-50 {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  .fixed.inset-0.z-50 > .relative {
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 1rem) !important;
+    overscroll-behavior: contain;
+  }
+
+  .ambient-sun-glow {
+    width: min(62vw, 360px) !important;
+  }
+
+  .scenery-zone {
+    opacity: 0.78;
+  }
+}
+
+@media (max-width: 430px) {
+  #walkable-world-stage > header > div:nth-child(1) span {
+    font-size: 0.72rem !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  #walkable-world-stage > header > div:nth-child(3) {
+    transform: scale(0.94);
+    transform-origin: right center;
+  }
+
+  #walkable-world-stage > header > div:nth-child(3) button,
+  #walkable-world-stage > header > div:nth-child(3) > div {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  #walkable-world-stage > header > div:nth-child(1) {
+    display: none;
+  }
+
+  #walkable-world-stage > header > div:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+
+/* Tablets e notebooks pequenos mantêm a interface confortável sem aumentar demais os controles. */
+@media (min-width: 721px) and (max-width: 1100px) {
+  #walkable-world-stage > header {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  #walkable-world-stage > header > div:nth-child(2) {
+    max-width: 18rem !important;
+  }
+}
+
+/* Paisagem em celulares: economiza altura para preservar a área de jogo. */
+@media (max-height: 520px) and (orientation: landscape) {
+  #walkable-world-stage > header {
+    display: flex !important;
+    padding-top: max(0.35rem, env(safe-area-inset-top));
+    padding-bottom: 0.35rem;
+  }
+
+  #walkable-world-stage > header > div:nth-child(1) {
+    display: none;
+  }
+
+  #walkable-world-stage > header > div:nth-child(2) {
+    max-width: 42vw !important;
+    margin: 0 0.4rem !important;
+  }
+
+  #walkable-world-stage > footer {
+    padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+  }
+
+  #walkable-world-stage > footer button {
+    min-height: 42px;
+  }
+
+  #walkable-world-stage > .top-16 {
+    top: calc(env(safe-area-inset-top) + 3.6rem) !important;
+    max-height: calc(100dvh - 5rem);
+  }
+}
+
+/* Dispositivos touch não dependem de hover para comunicar interatividade. */
+@media (hover: none) and (pointer: coarse) {
+  button:active,
+  a:active {
+    transform: scale(0.97);
+  }
+
+  .group:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-life::before,
+  .ambient-life::after,
+  .ambient-vignette::before,
+  .ambient-sun-glow {
+    transition: none !important;
+  }
+}
