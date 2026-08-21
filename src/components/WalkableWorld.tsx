@@ -4,6 +4,7 @@ import { UI_STRINGS } from '../data/portfolioData';
 import { APP_COPY } from '../data/translations';
 import { TravelerCharacter } from './TravelerCharacter';
 import { WorldLandmarks } from './WorldLandmarks';
+import { WorldScenery } from './WorldScenery';
 import { sound } from '../utils/audioEngine';
 import {
   Volume2,
@@ -105,9 +106,11 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
   };
 
   const handleTeleport = (xTarget: number) => {
-    physicsRef.current.x = Math.max(0, Math.min(totalWorldLength - 100, xTarget));
-    physicsRef.current.vx = 0;
-    physicsRef.current.isWalking = false;
+    const p = physicsRef.current;
+    p.x = Math.max(0, Math.min(totalWorldLength - 100, xTarget));
+    p.vx = 0;
+    p.isWalking = false;
+    p.smoothCamX = Math.max(0, p.x - (window.innerWidth || 1200) * 0.38);
     sound.playWhoosh();
   };
 
@@ -135,37 +138,40 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
     let lastTime = performance.now();
 
     const updatePhysics = (time: number) => {
-      const delta = Math.min((time - lastTime) / 1000, 0.08);
+      const delta = Math.min((time - lastTime) / 1000, 0.05);
       lastTime = time;
 
       const p = physicsRef.current;
       const speed = (isSprinting || keysPressed.current['Shift']) ? 780 : 440;
 
-      let vx = 0;
-      let isWalking = false;
-
+      let inputDirection = 0;
       if (
         keysPressed.current['ArrowLeft'] ||
         keysPressed.current['a'] ||
         keysPressed.current['A'] ||
         touchDirection.current === 'left'
       ) {
-        vx = -speed;
+        inputDirection = -1;
         p.direction = 'left';
-        isWalking = true;
       } else if (
         keysPressed.current['ArrowRight'] ||
         keysPressed.current['d'] ||
         keysPressed.current['D'] ||
         touchDirection.current === 'right'
       ) {
-        vx = speed;
+        inputDirection = 1;
         p.direction = 'right';
-        isWalking = true;
       }
 
-      p.vx = vx;
-      p.isWalking = isWalking;
+      // Aceleração e desaceleração progressivas evitam o efeito de "liga/desliga"
+      // do movimento e deixam teclado, toque e câmera com resposta mais natural.
+      const targetVx = inputDirection * speed;
+      const acceleration = inputDirection === 0 ? 3200 : 2550;
+      const maxVelocityStep = acceleration * delta;
+      const velocityDelta = targetVx - p.vx;
+      p.vx += Math.max(-maxVelocityStep, Math.min(maxVelocityStep, velocityDelta));
+      if (inputDirection === 0 && Math.abs(p.vx) < 5) p.vx = 0;
+      p.isWalking = Math.abs(p.vx) > 12;
 
       const wantsJump =
         keysPressed.current['ArrowUp'] ||
@@ -190,19 +196,25 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
       }
 
       p.x = Math.max(0, Math.min(totalWorldLength - 100, p.x + p.vx * delta));
-      if (p.isWalking) p.frameIndex += 1;
+      if (p.isWalking) p.frameIndex += delta * 60;
 
       if (p.isWalking && !p.isJumping) {
         stepSoundCounter.current += delta;
-        if (stepSoundCounter.current > (isSprinting ? 0.22 : 0.34)) {
+        const normalizedSpeed = Math.min(1, Math.abs(p.vx) / 780);
+        const stepInterval = 0.38 - normalizedSpeed * 0.17;
+        if (stepSoundCounter.current > stepInterval) {
           sound.playFootstep();
           stepSoundCounter.current = 0;
         }
+      } else {
+        stepSoundCounter.current = Math.min(stepSoundCounter.current, 0.12);
       }
 
       const viewportWidth = window.innerWidth || 1200;
-      const targetCamX = Math.max(0, Math.min(totalWorldLength - viewportWidth, p.x - viewportWidth * 0.38));
-      p.smoothCamX += (targetCamX - p.smoothCamX) * Math.min(1, delta * 12);
+      const cameraLead = p.direction === 'right' ? 0.37 : 0.43;
+      const targetCamX = Math.max(0, Math.min(totalWorldLength - viewportWidth, p.x - viewportWidth * cameraLead));
+      const cameraFollow = 1 - Math.exp(-8.5 * delta);
+      p.smoothCamX += (targetCamX - p.smoothCamX) * cameraFollow;
 
       if (worldStageRef.current) {
         worldStageRef.current.style.transform = `translate3d(${-p.smoothCamX}px, 0, 0)`;
@@ -460,6 +472,8 @@ export const WalkableWorld: React.FC<WalkableWorldProps> = ({
         className="absolute top-0 left-0 bottom-0 pointer-events-none will-change-transform"
         style={{ width: `${totalWorldLength}px` }}
       >
+        <WorldScenery />
+
         <WorldLandmarks
           worlds={worlds}
           activeWorld={activeWorld}
